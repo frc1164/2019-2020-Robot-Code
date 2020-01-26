@@ -34,4 +34,12 @@ public final class Constants {
         public static final int rightEncoderChanB = 3;
 
     }
+    public static final class joystickConstants {
+        public static final int stickPort = 0;
+        public static final int y_Axis = 1;
+        public static final int x_Axis = 0;
+        public static final int rotate = 2;
+        public static final int slider = 3;
+        public static final int trigger = 1;
+    }
 }
