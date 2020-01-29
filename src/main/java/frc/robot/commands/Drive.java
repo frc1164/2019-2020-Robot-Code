@@ -19,8 +19,6 @@ public class Drive extends CommandBase {
   private double forward;
   private double turn;
   private double scalar;
-  private double leftMSpeed;
-  private double rightMSpeed;
   /**
    * Creates a new Drive.
    */
