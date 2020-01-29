@@ -16,6 +16,11 @@ import frc.robot.Constants;
 public class Drive extends CommandBase {
   public final Joystick DriverStick;
   private final Chassis m_Drive;
+  private double forward;
+  private double turn;
+  private double scalar;
+  private double leftMSpeed;
+  private double rightMSpeed;
   /**
    * Creates a new Drive.
    */
@@ -34,8 +39,18 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Drive.leftSpeed(DriverStick.getRawAxis(Constants.joyStickConstants.y_Axis));
-    m_Drive.rightSpeed(DriverStick.getRawAxis(Constants.joyStickConstants.y_Axis));
+    forward = DriverStick.getRawAxis(Constants.joyStickConstants.y_Axis);
+    turn = DriverStick.getRawAxis(Constants.joyStickConstants.x_Axis);
+    scalar = DriverStick.getRawAxis(Constants.joyStickConstants.slider);
+
+    turn = (Math.abs(turn) <= 0.25) ? 0 : turn; 
+    forward = (Math.abs(forward) <= 0.1) ? 0 : forward; 
+    
+    double leftMSpeed = ((-scalar*forward) - turn);
+    double rightMSpeed = ((-scalar*forward) + turn);
+
+    m_Drive.leftSpeed(leftMSpeed);
+    m_Drive.rightSpeed(rightMSpeed);
   }
 
   // Called once the command ends or is interrupted.
