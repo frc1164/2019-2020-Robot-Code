@@ -8,22 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.Chassis;
 import frc.robot.Constants;
 
-
-public class Drive extends CommandBase {
-  public final Joystick DriverStick;
-  private final Chassis m_Drive;
+public class ChangeGear extends CommandBase {
+  private static boolean m_changeGear = true;
+  private final Chassis myChassis;
   /**
-   * Creates a new Drive.
+   * Creates a new ChangeGear.
    */
-  public Drive(Chassis m_Chassis) {
-    m_Drive = m_Chassis;
-    DriverStick = new Joystick(Constants.joyStickConstants.stickPort);
-    addRequirements(m_Drive);
+  public ChangeGear(Chassis newChassis) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.myChassis = newChassis;
+    
   }
 
   // Called when the command is initially scheduled.
@@ -34,9 +31,8 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Drive.leftSpeed(DriverStick.getRawAxis(Constants.joyStickConstants.y_Axis));
-
-    m_Drive.rightSpeed(DriverStick.getRawAxis(Constants.joyStickConstants.y_Axis));
+    ChangeGear.m_changeGear = !ChangeGear.m_changeGear;
+    this.myChassis.changeGear(ChangeGear.m_changeGear);
   }
 
   // Called once the command ends or is interrupted.

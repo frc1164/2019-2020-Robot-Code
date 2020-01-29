@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.driveConstants;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -22,11 +23,20 @@ public class Chassis extends SubsystemBase {
   private final VictorSPX leftMotorRear = new VictorSPX(driveConstants.leftMotorRear);
   private final VictorSPX rightMotorFront = new VictorSPX(driveConstants.rightMotorFront);
   private final VictorSPX rightMotorRear = new VictorSPX(driveConstants.rightMotorRear);
+  private final Solenoid leftLowSol, leftHighSol, rightLowSol, rightHighSol;
+
   /**
    * Creates a new Chassis.
    */
   public Chassis() {
-
+    leftLowSol = new Solenoid(Constants.driveConstants.PCM,
+                              Constants.driveConstants.leftLowSol);                      
+    leftHighSol = new Solenoid(Constants.driveConstants.PCM,
+                               Constants.driveConstants.leftHighSol);
+    rightLowSol = new Solenoid(Constants.driveConstants.PCM,
+                               Constants.driveConstants.rightLowSol);
+    rightHighSol = new Solenoid(Constants.driveConstants.PCM,
+                                Constants.driveConstants.rightHighSol);
   }
 //not sure if this needs to be in Periodic
   public void leftSpeed(double speed) {
@@ -37,6 +47,13 @@ public class Chassis extends SubsystemBase {
   public void rightSpeed(double speed) {
     rightMotorFront.set(ControlMode.PercentOutput, speed);
     rightMotorRear.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void changeGear(boolean isHigh){
+    leftLowSol.set(!isHigh);
+    rightLowSol.set(!isHigh);
+    leftHighSol.set(isHigh);
+    rightHighSol.set(isHigh);
   }
 
   @Override

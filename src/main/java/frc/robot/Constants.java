@@ -27,6 +27,7 @@ public final class Constants {
         public static final int leftHighSol = 6;
         public static final int rightLowSol = 0;
         public static final int rightHighSol = 7;
+        public static final boolean defaultGear = false;
 
         public static final int leftEncoderChanA = 0;
         public static final int leftEncoderChanB = 1;
