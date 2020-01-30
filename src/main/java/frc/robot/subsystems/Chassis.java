@@ -19,10 +19,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class Chassis extends SubsystemBase {
-  private final VictorSPX leftMotorFront = new VictorSPX(driveConstants.leftMotorFront);
   private final VictorSPX leftMotorRear = new VictorSPX(driveConstants.leftMotorRear);
-  private final VictorSPX rightMotorFront = new VictorSPX(driveConstants.rightMotorFront);
   private final VictorSPX rightMotorRear = new VictorSPX(driveConstants.rightMotorRear);
+  private final VictorSPX leftMotorFront = new VictorSPX(driveConstants.leftMotorFront);
+  private final VictorSPX rightMotorFront = new VictorSPX(driveConstants.rightMotorFront);
   private final Solenoid leftLowSol, leftHighSol, rightLowSol, rightHighSol;
 
   /**
@@ -37,6 +37,13 @@ public class Chassis extends SubsystemBase {
                                Constants.driveConstants.rightLowSol);
     rightHighSol = new Solenoid(Constants.driveConstants.PCM,
                                 Constants.driveConstants.rightHighSol);
+
+    
+    leftMotorRear.setInverted(driveConstants.invertLeftMotorRear);
+    rightMotorRear.setInverted(driveConstants.invertRightMotorRear);
+    leftMotorFront.setInverted(driveConstants.invertLeftMotorFront);
+    rightMotorFront.setInverted(driveConstants.invertRightMotorFront);
+
   }
 //not sure if this needs to be in Periodic
   public void leftSpeed(double speed) {

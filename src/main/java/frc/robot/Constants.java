@@ -21,6 +21,11 @@ public final class Constants {
         public static final int rightMotorRear = 14;
         public static final int leftMotorFront = 2;
         public static final int rightMotorFront = 13;
+
+        public static final boolean invertLeftMotorRear = true;
+        public static final boolean invertRightMotorRear = false;
+        public static final boolean invertLeftMotorFront = true;
+        public static final boolean invertRightMotorFront = false;
         
         public static final int PCM = 5;
         public static final int leftLowSol = 1;
