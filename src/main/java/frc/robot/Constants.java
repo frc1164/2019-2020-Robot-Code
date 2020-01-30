@@ -42,5 +42,6 @@ public final class Constants {
         public static final int rotate = 2;
         public static final int slider = 3;
         public static final int trigger = 1;
+        public static final int changeGear = 4;
     }
 }

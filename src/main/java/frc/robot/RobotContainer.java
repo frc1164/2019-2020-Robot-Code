@@ -9,7 +9,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.Drive;
+import frc.robot.commands.ChangeGear;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Chassis;
 import frc.robot.Constants;
 
@@ -23,6 +25,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Chassis m_Chassis;
   private final Drive m_Drive;
+  public static Joystick m_DriverStick;
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -31,6 +35,7 @@ public class RobotContainer {
     m_Chassis = new Chassis();
     m_Drive = new Drive(m_Chassis);
     m_Chassis.setDefaultCommand(m_Drive);
+    m_DriverStick = new Joystick(Constants.joyStickConstants.stickPort);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -43,6 +48,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(m_DriverStick, Constants.joyStickConstants.changeGear)
+                       .whenPressed(new ChangeGear(m_Chassis));
   }
 
 
