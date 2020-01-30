@@ -34,7 +34,6 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
     m_Drive.leftSpeed(RobotContainer.m_DriverStick.getRawAxis(Constants.joyStickConstants.y_Axis));
-
     m_Drive.rightSpeed(RobotContainer.m_DriverStick.getRawAxis(Constants.joyStickConstants.y_Axis));
   }
 
