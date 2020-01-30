@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.Chassis;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -16,6 +15,9 @@ import frc.robot.RobotContainer;
 
 public class Drive extends CommandBase {
   private final Chassis m_Drive;
+  private double forward;
+  private double turn;
+  private double scalar;
   /**
    * Creates a new Drive.
    */
@@ -33,8 +35,18 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Drive.leftSpeed(RobotContainer.m_DriverStick.getRawAxis(Constants.joyStickConstants.y_Axis));
-    m_Drive.rightSpeed(RobotContainer.m_DriverStick.getRawAxis(Constants.joyStickConstants.y_Axis));
+    forward = RobotContainer.m_DriverStick.getRawAxis(Constants.joyStickConstants.y_Axis);
+    turn = RobotContainer.m_DriverStick.getRawAxis(Constants.joyStickConstants.x_Axis);
+    scalar = RobotContainer.m_DriverStick.getRawAxis(Constants.joyStickConstants.slider);
+
+    turn = (Math.abs(turn) <= 0.25) ? 0 : turn; 
+    forward = (Math.abs(forward) <= 0.1) ? 0 : forward; 
+    
+    double leftMSpeed = ((-scalar*forward) - turn);
+    double rightMSpeed = ((-scalar*forward) + turn);
+
+    m_Drive.leftSpeed(leftMSpeed);
+    m_Drive.rightSpeed(rightMSpeed);
   }
 
   // Called once the command ends or is interrupted.
