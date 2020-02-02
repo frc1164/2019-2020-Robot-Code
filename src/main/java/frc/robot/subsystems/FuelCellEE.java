@@ -19,16 +19,16 @@ public class FuelCellEE extends SubsystemBase {
   private final Solenoid fuelCellEESolenoidExtend;
   private final Solenoid fuelCellEESolenoidRetract;
   /**
-   * Creates a new FuelCellEndEffector.
+   * Creates a new FuelCellEE.
    */
   public FuelCellEE() {
     fuelCellEESolenoidExtend = new Solenoid(driveConstants.PCM, fuelCellEEConstants.fuelCellEESolenoidExtend);
     fuelCellEESolenoidRetract = new Solenoid(driveConstants.PCM, fuelCellEEConstants.fuelCellEESolenoidRetract);
   }
 
-  public void fuelCellEESpeed(double speed) {
-    fuelCellEEMotor.setInverted(fuelCellEEConstants.invertFuelCellEEMotor);
-    fuelCellEEMotor.set(ControlMode.PercentOutput, speed);
+  public void fuelCellEESpeed() {
+    // fuelCellEEMotor.setInverted(fuelCellEEConstants.invertFuelCellEEMotor);
+    // fuelCellEEMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public void fuelCellEEFlip(boolean isExtended) {
