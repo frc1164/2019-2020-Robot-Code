@@ -38,8 +38,15 @@ public final class Constants {
         public static final int leftEncoderChanB = 1;
         public static final int rightEncoderChanA = 2;
         public static final int rightEncoderChanB = 3;
-
     }
+
+    public static final class fuelCellEEConstants {
+        public static final int fuelCellEEMotor = 12;
+        public static final boolean invertFuelCellEESolenoid = false;
+        public static final int fuelCellEESolenoidExtend = 5;
+        public static final int fuelCellEESolenoidRetract = 2;
+    }
+
     public static final class joyStickConstants {
         public static final int stickPort = 0;
         public static final int y_Axis = 1;
@@ -47,6 +54,7 @@ public final class Constants {
         public static final int rotate = 2;
         public static final int slider = 3;
         public static final int trigger = 1;
-        public static final int changeGear = 4;
+        public static final int changeGear = 3;
+        public static final int fuelCellEE = 4;
     }
 }

@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Chassis;
-import frc.robot.Constants;
 
 public class ChangeGear extends CommandBase {
   private static boolean m_changeGear = true;
@@ -20,7 +19,6 @@ public class ChangeGear extends CommandBase {
   public ChangeGear(Chassis newChassis) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.myChassis = newChassis;
-    
   }
 
   // Called when the command is initially scheduled.
