@@ -10,10 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.driveConstants;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -37,21 +34,19 @@ public class Chassis extends SubsystemBase {
                                Constants.driveConstants.rightLowSol);
     rightHighSol = new Solenoid(Constants.driveConstants.PCM,
                                 Constants.driveConstants.rightHighSol);
-
-    
-    leftMotorRear.setInverted(driveConstants.invertLeftMotorRear);
-    rightMotorRear.setInverted(driveConstants.invertRightMotorRear);
-    leftMotorFront.setInverted(driveConstants.invertLeftMotorFront);
-    rightMotorFront.setInverted(driveConstants.invertRightMotorFront);
-
   }
+
 //not sure if this needs to be in Periodic
   public void leftSpeed(double speed) {
+    leftMotorRear.setInverted(driveConstants.invertLeftMotorRear);
+    leftMotorFront.setInverted(driveConstants.invertLeftMotorFront);
     leftMotorFront.set(ControlMode.PercentOutput, speed);
     leftMotorRear.set(ControlMode.PercentOutput, speed);
   }
 
   public void rightSpeed(double speed) {
+    rightMotorRear.setInverted(driveConstants.invertRightMotorRear);
+    rightMotorFront.setInverted(driveConstants.invertRightMotorFront);
     rightMotorFront.set(ControlMode.PercentOutput, speed);
     rightMotorRear.set(ControlMode.PercentOutput, speed);
   }
