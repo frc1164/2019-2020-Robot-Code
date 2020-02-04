@@ -10,12 +10,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.FuelCellEEScore;
 import frc.robot.subsystems.FuelCellEE;
 
 
 public class FuelCellEEScore extends CommandBase {
-  private static boolean fuelCellEEFlipSolenoid = false;
+  private static boolean fuelCellEEFlipSolenoid = true;
   private final FuelCellEE myFuelCellEE;
   /**
    * Creates a new FuelCellEEScore.
