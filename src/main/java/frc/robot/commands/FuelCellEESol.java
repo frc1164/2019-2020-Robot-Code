@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.FuelCellEE;
 
 
-public class FuelCellEEScore extends CommandBase {
-  private static boolean fuelCellEEFlipSolenoid = true;
+public class FuelCellEESol extends CommandBase {
+  private static boolean fuelCellEEFlipSol = true;
   private final FuelCellEE myFuelCellEE;
   /**
    * Creates a new FuelCellEEScore.
    */
-  public FuelCellEEScore(FuelCellEE newFuelCellEE) {
+  public FuelCellEESol(FuelCellEE newFuelCellEE) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.myFuelCellEE = newFuelCellEE;
   }
@@ -32,8 +32,8 @@ public class FuelCellEEScore extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    FuelCellEEScore.fuelCellEEFlipSolenoid = !FuelCellEEScore.fuelCellEEFlipSolenoid;
-    this.myFuelCellEE.fuelCellEEFlip(FuelCellEEScore.fuelCellEEFlipSolenoid);
+    FuelCellEESol.fuelCellEEFlipSol = !FuelCellEESol.fuelCellEEFlipSol;
+    this.myFuelCellEE.fuelCellEEFlip(FuelCellEESol.fuelCellEEFlipSol);
   }
 
   // Called once the command ends or is interrupted.

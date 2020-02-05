@@ -32,7 +32,6 @@ public final class Constants {
         public static final int leftHighSol = 6;
         public static final int rightLowSol = 0;
         public static final int rightHighSol = 7;
-        public static final boolean defaultGear = false;
 
         public static final int leftEncoderChanA = 0;
         public static final int leftEncoderChanB = 1;
@@ -41,8 +40,8 @@ public final class Constants {
     }
 
     public static final class fuelCellEEConstants {
-        public static final int fuelCellEEMotor = 12;
-        public static final boolean invertFuelCellEESolenoid = false;
+        public static final int fuelCellEEMot = 12;
+        public static final boolean invertFuelCellEEMot = false;
         public static final int fuelCellEESolenoidExtend = 5;
         public static final int fuelCellEESolenoidRetract = 2;
     }
@@ -55,6 +54,11 @@ public final class Constants {
         public static final int slider = 3;
         public static final int trigger = 1;
         public static final int changeGear = 3;
-        public static final int fuelCellEE = 4;
+        public static final int fuelCellEESol = 4;
+    }
+
+    public static final class xBoxConstants {
+        public static final int operatorPort = 1;
+        public static final int ry_Axis = 5;
     }
 }

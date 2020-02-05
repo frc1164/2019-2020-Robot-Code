@@ -8,14 +8,18 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ChangeGear;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Chassis;
 import frc.robot.Constants.joyStickConstants;
+import frc.robot.Constants.xBoxConstants;
 import frc.robot.subsystems.FuelCellEE;
-import frc.robot.commands.FuelCellEEScore;
+import frc.robot.commands.FuelCellEESol;
+import frc.robot.commands.FuelCellEEMot;
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -27,22 +31,32 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Chassis m_Chassis;
   private final Drive m_Drive;
+  private final FuelCellEEMot m_FuelCellEEMot;
   private final FuelCellEE m_FuelCellEE;
-  private final FuelCellEEScore m_FuelCellEEScore;
   public static Joystick m_DriverStick;
+  public static XboxController m_OperatorController;
 
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    m_Chassis = new Chassis();
-    m_Drive = new Drive(m_Chassis);
-    m_Chassis.setDefaultCommand(m_Drive);
-    m_FuelCellEE = new FuelCellEE();
-    m_FuelCellEEScore = new FuelCellEEScore(m_FuelCellEE);
 
-    m_DriverStick = new Joystick(Constants.joyStickConstants.stickPort);
+   //Instantiate Subsystems 
+    m_Chassis = new Chassis();
+    m_FuelCellEE = new FuelCellEE();
+
+    //Set Autonomous Commands
+
+    //Set Commands
+    m_Drive = new Drive(m_Chassis);
+    m_FuelCellEEMot = new FuelCellEEMot(m_FuelCellEE);
+    m_Chassis.setDefaultCommand(m_Drive);
+    m_FuelCellEE.setDefaultCommand(m_FuelCellEEMot);
+    
+    //Define Controller
+    m_DriverStick = new Joystick(joyStickConstants.stickPort);
+    m_OperatorController = new XboxController(xBoxConstants.operatorPort);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -58,8 +72,8 @@ public class RobotContainer {
     new JoystickButton(m_DriverStick, joyStickConstants.changeGear)
                        .whenPressed(new ChangeGear(m_Chassis));
 
-    new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEE)
-                       .whenPressed(new FuelCellEEScore(m_FuelCellEE));
+    new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
+                       .whenPressed(new FuelCellEESol(m_FuelCellEE));
   }
 
 

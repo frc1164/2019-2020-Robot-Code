@@ -14,8 +14,10 @@ import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class FuelCellEE extends SubsystemBase {
-  private final TalonSRX fuelCellEEMotor = new TalonSRX(fuelCellEEConstants.fuelCellEEMotor);
+  private final TalonSRX fuelCellEEMot = new TalonSRX(fuelCellEEConstants.fuelCellEEMot);
   private final Solenoid fuelCellEESolenoidExtend;
   private final Solenoid fuelCellEESolenoidRetract;
   /**
@@ -26,9 +28,11 @@ public class FuelCellEE extends SubsystemBase {
     fuelCellEESolenoidRetract = new Solenoid(driveConstants.PCM, fuelCellEEConstants.fuelCellEESolenoidRetract);
   }
 
-  public void fuelCellEESpeed() {
-    // fuelCellEEMotor.setInverted(fuelCellEEConstants.invertFuelCellEEMotor);
-    // fuelCellEEMotor.set(ControlMode.PercentOutput, speed);
+  public void fuelCellEESpeed(double speed) {
+    fuelCellEEMot.setInverted(fuelCellEEConstants.invertFuelCellEEMot);
+    fuelCellEEMot.set(ControlMode.PercentOutput, speed);
+  
+    //SmartDashboard.putNumber("FuelCEllEEMot", speed);
   }
 
   public void fuelCellEEFlip(boolean isExtended) {

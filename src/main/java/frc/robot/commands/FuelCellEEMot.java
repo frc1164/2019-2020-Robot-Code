@@ -8,19 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Chassis;
-import frc.robot.Constants.joyStickConstants;;
+import frc.robot.subsystems.FuelCellEE;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.xBoxConstants;
 
-
-public class Drive extends CommandBase {
-  private final Chassis m_Drive;
+public class FuelCellEEMot extends CommandBase {
+  private final FuelCellEE m_FuelCellEEMot;
   /**
-   * Creates a new Drive.
+   * Creates a new FuelCellEEMot.
    */
-  public Drive(Chassis m_Chassis) {
-    m_Drive = m_Chassis;
-    addRequirements(m_Drive);
+  public FuelCellEEMot(FuelCellEE myFuelCellEE) {
+    m_FuelCellEEMot = myFuelCellEE;
+    addRequirements(m_FuelCellEEMot);
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -32,18 +32,8 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double forward = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.y_Axis);
-    double turn = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.x_Axis);
-    double scalar = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.slider);
-
-    turn = (Math.abs(turn) <= 0.25) ? 0 : turn; 
-    forward = (Math.abs(forward) <= 0.1) ? 0 : forward; 
-    
-    double leftMSpeed = ((-scalar*forward) - turn);
-    double rightMSpeed = ((-scalar*forward) + turn);
-
-    m_Drive.leftSpeed(leftMSpeed);
-    m_Drive.rightSpeed(rightMSpeed);
+    double runFuelCellEEMot = RobotContainer.m_OperatorController.getRawAxis(xBoxConstants.ry_Axis);
+    m_FuelCellEEMot.fuelCellEESpeed(runFuelCellEEMot);
   }
 
   // Called once the command ends or is interrupted.
