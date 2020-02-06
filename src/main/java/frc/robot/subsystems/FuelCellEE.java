@@ -13,6 +13,7 @@ import frc.robot.Constants.driveConstants;
 import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;
 
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -29,10 +30,12 @@ public class FuelCellEE extends SubsystemBase {
   }
 
   public void fuelCellEESpeed(double speed) {
+    speed = (Math.abs(speed) <= 0.1) ? 0 : speed;
+
     fuelCellEEMot.setInverted(fuelCellEEConstants.invertFuelCellEEMot);
     fuelCellEEMot.set(ControlMode.PercentOutput, speed);
   
-    //SmartDashboard.putNumber("FuelCEllEEMot", speed);
+    SmartDashboard.putNumber("FuelCEllEEMot", speed);
   }
 
   public void fuelCellEEFlip(boolean isExtended) {
