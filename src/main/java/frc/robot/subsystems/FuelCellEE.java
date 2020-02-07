@@ -30,6 +30,8 @@ public class FuelCellEE extends SubsystemBase {
   }
 
   public void fuelCellEESpeed(double speed) {
+    speed = (Math.abs(speed) <= 0.1) ? 0 : speed;
+
     fuelCellEEMot.setInverted(fuelCellEEConstants.invertFuelCellEEMot);
     fuelCellEEMot.set(ControlMode.PercentOutput, speed);
   
