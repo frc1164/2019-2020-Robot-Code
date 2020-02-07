@@ -12,13 +12,14 @@ import frc.robot.subsystems.Chassis;
 
 public class ChangeGear extends CommandBase {
   private static boolean m_changeGear = true;
-  private final Chassis myChassis;
+  private final Chassis m_Chassis;
   /**
    * Creates a new ChangeGear.
    */
-  public ChangeGear(Chassis newChassis) {
+  public ChangeGear(Chassis m_Chassis) {
+    this.m_Chassis = m_Chassis;
+    addRequirements(m_Chassis);
     // Use addRequirements() here to declare subsystem dependencies.
-    this.myChassis = newChassis;
   }
 
   // Called when the command is initially scheduled.
@@ -30,7 +31,7 @@ public class ChangeGear extends CommandBase {
   @Override
   public void execute() {
     ChangeGear.m_changeGear = !ChangeGear.m_changeGear;
-    this.myChassis.changeGear(ChangeGear.m_changeGear);
+    this.m_Chassis.changeGear(ChangeGear.m_changeGear);
   }
 
   // Called once the command ends or is interrupted.

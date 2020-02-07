@@ -6,19 +6,28 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Drive;
-import frc.robot.commands.ChangeGear;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.subsystems.Chassis;
+
+//Controllers
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+
+//Constants
 import frc.robot.Constants.joyStickConstants;
 import frc.robot.Constants.xBoxConstants;
+
+//Subsystems
 import frc.robot.subsystems.FuelCellEE;
+import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Chassis;
+
+//Commands
+import frc.robot.commands.ChangeGear;
+import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
 import frc.robot.commands.FuelCellEEMot;
+
 
 
 /**
@@ -33,6 +42,7 @@ public class RobotContainer {
   private final Drive m_Drive;
   private final FuelCellEEMot m_FuelCellEEMot;
   private final FuelCellEE m_FuelCellEE;
+  private final Vision m_Vision;
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
 
@@ -43,14 +53,16 @@ public class RobotContainer {
   public RobotContainer() {
 
    //Instantiate Subsystems 
+    m_Vision = new Vision();
     m_Chassis = new Chassis();
     m_FuelCellEE = new FuelCellEE();
 
     //Set Autonomous Commands
 
-    //Set Commands
+    //Set Default Commands
     m_Drive = new Drive(m_Chassis);
     m_FuelCellEEMot = new FuelCellEEMot(m_FuelCellEE);
+
     m_Chassis.setDefaultCommand(m_Drive);
     m_FuelCellEE.setDefaultCommand(m_FuelCellEEMot);
     

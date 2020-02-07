@@ -13,14 +13,13 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.xBoxConstants;
 
 public class FuelCellEEMot extends CommandBase {
-  private final FuelCellEE m_FuelCellEEMot;
+  private final FuelCellEE m_FuelCellEE;
   /**
    * Creates a new FuelCellEEMot.
    */
-  public FuelCellEEMot(FuelCellEE myFuelCellEE) {
-    m_FuelCellEEMot = myFuelCellEE;
-    addRequirements(m_FuelCellEEMot);
-
+  public FuelCellEEMot(FuelCellEE m_FuelCellEE) {
+    this.m_FuelCellEE = m_FuelCellEE;
+    addRequirements(m_FuelCellEE);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -33,7 +32,7 @@ public class FuelCellEEMot extends CommandBase {
   @Override
   public void execute() {
     double runFuelCellEEMot = RobotContainer.m_OperatorController.getRawAxis(xBoxConstants.ry_Axis);
-    m_FuelCellEEMot.fuelCellEESpeed(runFuelCellEEMot);
+    m_FuelCellEE.fuelCellEESpeed(runFuelCellEEMot);
   }
 
   // Called once the command ends or is interrupted.

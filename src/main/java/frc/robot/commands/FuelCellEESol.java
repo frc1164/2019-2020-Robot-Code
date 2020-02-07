@@ -15,13 +15,14 @@ import frc.robot.subsystems.FuelCellEE;
 
 public class FuelCellEESol extends CommandBase {
   private static boolean fuelCellEEFlipSol = true;
-  private final FuelCellEE myFuelCellEE;
+  private final FuelCellEE m_FuelCellEE;
   /**
    * Creates a new FuelCellEEScore.
    */
-  public FuelCellEESol(FuelCellEE newFuelCellEE) {
+  public FuelCellEESol(FuelCellEE m_FuelCellEE) {
+    this.m_FuelCellEE = m_FuelCellEE;
+    addRequirements(m_FuelCellEE);
     // Use addRequirements() here to declare subsystem dependencies.
-    this.myFuelCellEE = newFuelCellEE;
   }
 
   // Called when the command is initially scheduled.
@@ -33,7 +34,7 @@ public class FuelCellEESol extends CommandBase {
   @Override
   public void execute() {
     FuelCellEESol.fuelCellEEFlipSol = !FuelCellEESol.fuelCellEEFlipSol;
-    this.myFuelCellEE.fuelCellEEFlip(FuelCellEESol.fuelCellEEFlipSol);
+    this.m_FuelCellEE.fuelCellEEFlip(FuelCellEESol.fuelCellEEFlipSol);
   }
 
   // Called once the command ends or is interrupted.
