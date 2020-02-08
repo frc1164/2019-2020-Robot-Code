@@ -26,6 +26,7 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
+import frc.robot.commands.PrintLLvalues;
 import frc.robot.commands.FuelCellEEMot;
 
 
@@ -37,12 +38,18 @@ import frc.robot.commands.FuelCellEEMot;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  // The robot's subsystems and default commands are defined here...
+    //Subsystems
   private final Chassis m_Chassis;
-  private final Drive m_Drive;
-  private final FuelCellEEMot m_FuelCellEEMot;
   private final FuelCellEE m_FuelCellEE;
   private final Vision m_Vision;
+
+    //Default Commands
+  private final Drive m_Drive;
+  private final FuelCellEEMot m_FuelCellEEMot;
+  private final PrintLLvalues m_PrintLLvalues;
+
+  //Defined Controllers
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
 
@@ -62,9 +69,11 @@ public class RobotContainer {
     //Set Default Commands
     m_Drive = new Drive(m_Chassis);
     m_FuelCellEEMot = new FuelCellEEMot(m_FuelCellEE);
+    m_PrintLLvalues = new PrintLLvalues(m_Vision);
 
     m_Chassis.setDefaultCommand(m_Drive);
     m_FuelCellEE.setDefaultCommand(m_FuelCellEEMot);
+    m_Vision.setDefaultCommand(m_PrintLLvalues);
     
     //Define Controller
     m_DriverStick = new Joystick(joyStickConstants.stickPort);

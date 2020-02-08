@@ -10,13 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Vision;
 
-public class printLLvalues extends CommandBase {
+public class PrintLLvalues extends CommandBase {
   private final Vision m_Vision;
   /**
-   * Creates a new printLLvalues.
+   * Creates a new PrintLLvalues.
    */
-  public printLLvalues(Vision m_Vision) {
+  public PrintLLvalues(Vision m_Vision) {
     this.m_Vision = m_Vision;
+    addRequirements(m_Vision);
   }
 
   // Called when the command is initially scheduled.

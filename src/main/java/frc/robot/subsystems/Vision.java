@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Chassis;
 import java.util.LinkedList;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -58,7 +57,7 @@ public class Vision extends SubsystemBase {
     return LLarea;
   }
   
-  //Displays LimeLight Value
+  //Displays LimeLight Valu
   public void printLLvalues() {
     SmartDashboard.putBoolean("Object Detected", get_lltarget());
     SmartDashboard.putNumber("LimelightX", get_llx());
