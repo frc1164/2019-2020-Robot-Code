@@ -18,16 +18,14 @@ public class Chassis extends SubsystemBase {
   private final VictorSPX rightMotorRear = new VictorSPX(driveConstants.rightMotorRear);
   private final VictorSPX leftMotorFront = new VictorSPX(driveConstants.leftMotorFront);
   private final VictorSPX rightMotorFront = new VictorSPX(driveConstants.rightMotorFront);
-  private final Solenoid leftLowSol, leftHighSol, rightLowSol, rightHighSol;
+  private final Solenoid LowSol, HighSol;
 
   /**
    * Creates a new Chassis.
    */
   public Chassis() {
-    leftLowSol = new Solenoid(driveConstants.PCM, driveConstants.leftLowSol);                      
-    leftHighSol = new Solenoid(driveConstants.PCM, driveConstants.leftHighSol);
-    rightLowSol = new Solenoid(driveConstants.PCM, driveConstants.rightLowSol);
-    rightHighSol = new Solenoid(driveConstants.PCM, driveConstants.rightHighSol);
+    LowSol = new Solenoid(driveConstants.PCM, driveConstants.LowSol);                      
+    HighSol = new Solenoid(driveConstants.PCM, driveConstants.HighSol);
   }
 
 //not sure if this needs to be in Periodic
@@ -46,10 +44,8 @@ public class Chassis extends SubsystemBase {
   }
 
   public void changeGear(boolean isHigh) {
-    leftLowSol.set(!isHigh);
-    rightLowSol.set(!isHigh);
-    leftHighSol.set(isHigh);
-    rightHighSol.set(isHigh);
+    LowSol.set(!isHigh);
+    HighSol.set(isHigh);
   }
 
   @Override
