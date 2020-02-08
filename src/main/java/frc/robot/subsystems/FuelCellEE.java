@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class FuelCellEE extends SubsystemBase {
-  private final TalonSRX fuelCellEEMot = new TalonSRX(fuelCellEEConstants.fuelCellEEMot);
+  private final TalonSRX talon = new TalonSRX(fuelCellEEConstants.talon);
   private final Solenoid fuelCellEESolenoidExtend;
   private final Solenoid fuelCellEESolenoidRetract;
   /**
@@ -32,10 +32,10 @@ public class FuelCellEE extends SubsystemBase {
   public void fuelCellEESpeed(double speed) {
     speed = (Math.abs(speed) <= 0.1) ? 0 : speed;
 
-    fuelCellEEMot.setInverted(fuelCellEEConstants.invertFuelCellEEMot);
-    fuelCellEEMot.set(ControlMode.PercentOutput, speed);
+    talon.setInverted(fuelCellEEConstants.invertTalon);
+    talon.set(ControlMode.PercentOutput, speed);
   
-    SmartDashboard.putNumber("FuelCEllEEMot", speed);
+    SmartDashboard.putNumber("talon", speed);
   }
 
   public void fuelCellEEFlip(boolean isExtended) {

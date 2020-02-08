@@ -38,8 +38,8 @@ public final class Constants {
     }
 
     public static final class fuelCellEEConstants {
-        public static final int fuelCellEEMot = 12;
-        public static final boolean invertFuelCellEEMot = false;
+        public static final int talon = 15;
+        public static final boolean invertTalon = false;
         public static final int fuelCellEESolenoidExtend = 5;
         public static final int fuelCellEESolenoidRetract = 2;
     }
@@ -58,5 +58,8 @@ public final class Constants {
     public static final class xBoxConstants {
         public static final int operatorPort = 1;
         public static final int ry_Axis = 5;
+    }
+
+    public static final class controlPanel {
     }
 }
