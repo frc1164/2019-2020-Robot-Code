@@ -39,7 +39,6 @@ public final class Constants {
 
     public static final class fuelCellEEConstants {
         public static final int talon = 15;
-        public static final boolean invertTalon = false;
         public static final int fuelCellEESolenoidExtend = 5;
         public static final int fuelCellEESolenoidRetract = 2;
     }

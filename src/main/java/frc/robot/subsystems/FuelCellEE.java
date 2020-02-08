@@ -32,7 +32,6 @@ public class FuelCellEE extends SubsystemBase {
   public void fuelCellEESpeed(double speed) {
     speed = (Math.abs(speed) <= 0.1) ? 0 : speed;
 
-    talon.setInverted(fuelCellEEConstants.invertTalon);
     talon.set(ControlMode.PercentOutput, speed);
   
     SmartDashboard.putNumber("talon", speed);
