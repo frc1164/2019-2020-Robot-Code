@@ -36,7 +36,7 @@ public class Drive extends CommandBase {
     double turn = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.x_Axis);
     double scalar = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.slider);
 
-    turn = (Math.abs(turn) <= 0.25) ? 0 : turn; 
+    turn = (Math.abs(turn) <= 0.1) ? 0 : turn; 
     forward = (Math.abs(forward) <= 0.1) ? 0 : forward; 
     
     double leftMSpeed = ((-scalar*forward) - turn);
