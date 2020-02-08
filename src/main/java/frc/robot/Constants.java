@@ -39,8 +39,9 @@ public final class Constants {
 
     public static final class fuelCellEEConstants {
         public static final int talon = 15;
-        public static final int fuelCellEESolenoidExtend = 5;
-        public static final int fuelCellEESolenoidRetract = 2;
+        //Exted and retract may have to be be reversed
+        public static final int fuelCellEESolenoidExtend = 4;
+        public static final int fuelCellEESolenoidRetract = 5;
     }
 
     public static final class joyStickConstants {
@@ -60,5 +61,8 @@ public final class Constants {
     }
 
     public static final class controlPanel {
+        
+        public static final int conPanEESolenoidExtend = 4;
+        public static final int conPanEESolenoidRetract = 5;
     }
 }
