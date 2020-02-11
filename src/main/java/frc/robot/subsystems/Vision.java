@@ -34,7 +34,7 @@ public class Vision extends SubsystemBase {
   }
   
   //Method for LimeLight valid target
-  private boolean get_lltarget() {
+  public static boolean get_lltarget() {
     double LLt = tv.getDouble(0.0);
     
     if (LLt == 1) {
@@ -47,19 +47,19 @@ public class Vision extends SubsystemBase {
   }
 
   //Method for LimeLight x_axis
-  private double get_llx() {
+  public static double get_llx() {
     double LLx = tx.getDouble(0.0);
     return LLx;
   }
 
   //Method for LimeLight y_axis
-  private double get_lly() {
+  public static double get_lly() {
     double LLy = ty.getDouble(0.0);
     return LLy;
   }
 
   //Method for LimeLight area
-  private double get_llarea() {
+  public static double get_llarea() {
     double LLarea = ta.getDouble(0.0);
     return LLarea;
   }
@@ -72,37 +72,7 @@ public class Vision extends SubsystemBase {
     SmartDashboard.putNumber("LimelightArea", get_llarea());
   }
 
-  /*
-  public void offsetgoalvalues() {
-    double Speed_L;
-    double Speed_R;
-    
-     public Rightoffset() {
-      if (get_llx() > 8) {
-        Speed_R = (0.20 + (Math.abs(get_llx()) * 0.02));
-      }
-
-      if (get_llx() < 8) {
-        Speed_R = -(0.20 + (Math.abs(get_llx()) * 0.02));
-      }
-
-      return Speed_R;
-    }
-
-    public Leftoffset() {
-      if (get_llx() > 8) {
-        Speed_L = (0.20 + (Math.abs(get_llx()) * 0.02));
-      }
-
-      if (get_llx() < 8) {
-        Speed_L = -(0.20 + (Math.abs(get_llx()) * 0.02));
-      }
-
-      return Speed_L;
-    }
-    
-  }*/
-
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
