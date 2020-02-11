@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.XboxController;
 //Constants
 import frc.robot.Constants.joyStickConstants;
 import frc.robot.Constants.xBoxConstants;
+import frc.robot.Constants.conPanConstants;
 
 //Subsystems
 import frc.robot.subsystems.FuelCellEE;
@@ -27,6 +28,7 @@ import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
 import frc.robot.commands.FuelCellEEMot;
+import frc.robot.commands.readRGB;
 
 
 
@@ -45,6 +47,8 @@ public class RobotContainer {
   private final Vision m_Vision;
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
+  private final ControlPanel m_colorSensor;
+  private final ControlPanel m_colorMatcher;
 
 
   /**
@@ -56,6 +60,8 @@ public class RobotContainer {
     m_Vision = new Vision();
     m_Chassis = new Chassis();
     m_FuelCellEE = new FuelCellEE();
+    m_colorSensor = new ControlPanel();
+    m_colorMatcher = new ControlPanel();
 
     //Set Autonomous Commands
 
@@ -86,6 +92,9 @@ public class RobotContainer {
 
     new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
                        .whenPressed(new FuelCellEESol(m_FuelCellEE));
+
+    new JoystickButton(m_DriverStick, joyStickConstants.readRGB)
+                       .whenPressed(new readRGB(m_colorSensor));
   }
 
 

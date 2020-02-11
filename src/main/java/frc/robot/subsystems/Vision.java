@@ -60,6 +60,9 @@ public class Vision extends SubsystemBase {
     SmartDashboard.putNumber("LimelightArea", get_llarea() );
   }
 
+  //Color sensor methods:
+  public 
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
