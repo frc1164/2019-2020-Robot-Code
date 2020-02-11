@@ -27,6 +27,7 @@ import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
 import frc.robot.commands.PrintLLvalues;
+import frc.robot.commands.SeekGoal;
 import frc.robot.commands.FuelCellEEMot;
 
 
