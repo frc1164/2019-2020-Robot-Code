@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Chassis;
 
 public class SeekGoal extends CommandBase {
   private final Chassis m_Chassis;
@@ -30,19 +31,25 @@ public class SeekGoal extends CommandBase {
   @Override
   public void execute() {
     if (Vision.get_lltarget()) {
+      double Speed_R;
+      double Speed_L;
+
       if (Vision.get_llx() > 8) {
-        double Speed_L = (0.20 + (Math.abs(Vision.get_llx()) * 0.02));
-        double Speed_R = -(0.20 + (Math.abs(Vision.get_llx()) * 0.02));
-        //Set
+        Speed_L = (0.20 + (Math.abs(Vision.get_llx()) * 0.02));
+        Speed_R = -(0.20 + (Math.abs(Vision.get_llx()) * 0.02));
+
+        m_Chassis.leftSpeed(Speed_L);
+        m_Chassis.rightSpeed(Speed_R);
       }
 
       if (Vision.get_llx() < 8) {
-        double Speed_L = -(0.20 + (Math.abs(Vision.get_llx()) * 0.02));
-        double Speed_R = (0.20 + (Math.abs(Vision.get_llx()) * 0.02));
-        //Set
+        Speed_L = -(0.20 + (Math.abs(Vision.get_llx()) * 0.02));
+        Speed_R = (0.20 + (Math.abs(Vision.get_llx()) * 0.02));
+
+        m_Chassis.leftSpeed(Speed_L);
+        m_Chassis.rightSpeed(Speed_R);
       }
     }
-    
   }
 
   // Called once the command ends or is interrupted.

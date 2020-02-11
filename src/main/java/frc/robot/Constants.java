@@ -62,5 +62,6 @@ public final class Constants {
         public static final int ry_Axis = 5;
         public static final int RIGHT_TRIGGER = 3;
         public static final int LEFT_TRIGGER = 2;
+        public static final int seekGoal = 4;
     }
 }

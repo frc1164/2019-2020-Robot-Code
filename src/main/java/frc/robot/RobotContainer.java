@@ -91,10 +91,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(m_DriverStick, joyStickConstants.changeGear)
-                       .whenPressed(new ChangeGear(m_Chassis));
+                      .whenPressed(new ChangeGear(m_Chassis));
 
     new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
-                       .whenPressed(new FuelCellEESol(m_FuelCellEE));
+                      .whenPressed(new FuelCellEESol(m_FuelCellEE));
+    new JoystickButton(m_OperatorController, xBoxConstants.seekGoal)
+                      .whileHeld(new SeekGoal(m_Chassis));
   }
 
 
