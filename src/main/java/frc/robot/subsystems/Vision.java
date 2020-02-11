@@ -35,8 +35,15 @@ public class Vision extends SubsystemBase {
   
   //Method for LimeLight valid target
   private boolean get_lltarget() {
-    boolean LLt = tx.getBoolean(false);
-    return LLt;
+    double LLt = tv.getDouble(0.0);
+    
+    if (LLt == 1) {
+      return true;
+    }
+
+    else {
+      return false;
+    }
   }
 
   //Method for LimeLight x_axis
@@ -62,7 +69,7 @@ public class Vision extends SubsystemBase {
     SmartDashboard.putBoolean("Object Detected", get_lltarget());
     SmartDashboard.putNumber("LimelightX", get_llx());
     SmartDashboard.putNumber("LimelightY", get_lly());
-    SmartDashboard.putNumber("LimelightArea", get_llarea() );
+    SmartDashboard.putNumber("LimelightArea", get_llarea());
   }
 
   /*
