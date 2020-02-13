@@ -21,12 +21,15 @@ import frc.robot.Constants.xBoxConstants;
 import frc.robot.subsystems.FuelCellEE;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Arduino;
 
 //Commands
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
+import frc.robot.commands.SerialConnect;
 import frc.robot.commands.FuelCellEEMot;
+import frc.robot.commands.ByteCode;
 
 
 
@@ -43,8 +46,11 @@ public class RobotContainer {
   private final FuelCellEEMot m_FuelCellEEMot;
   private final FuelCellEE m_FuelCellEE;
   private final Vision m_Vision;
+  private final Arduino m_Arduino;
+  private final SerialConnect m_SerialConnect;
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
+
 
 
   /**
@@ -56,15 +62,21 @@ public class RobotContainer {
     m_Vision = new Vision();
     m_Chassis = new Chassis();
     m_FuelCellEE = new FuelCellEE();
+    m_Arduino = new Arduino();
+
 
     //Set Autonomous Commands
 
     //Set Default Commands
     m_Drive = new Drive(m_Chassis);
     m_FuelCellEEMot = new FuelCellEEMot(m_FuelCellEE);
+    m_SerialConnect = new SerialConnect(m_Arduino);
 
     m_Chassis.setDefaultCommand(m_Drive);
     m_FuelCellEE.setDefaultCommand(m_FuelCellEEMot);
+    m_Arduino.setDefaultCommand(m_SerialConnect);
+
+
     
     //Define Controller
     m_DriverStick = new Joystick(joyStickConstants.stickPort);
@@ -86,6 +98,9 @@ public class RobotContainer {
 
     new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
                        .whenPressed(new FuelCellEESol(m_FuelCellEE));
+                       
+    new JoystickButton(m_OperatorController, xBoxConstants.LEFT_BUMPER)
+                       .whenPressed(new ByteCode(m_Arduino));
   }
 
 
