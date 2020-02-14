@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import org.w3c.dom.css.RGBColor;
+import edu.wpi.first.wpilibj.I2C;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -53,6 +56,7 @@ public final class Constants {
         public static final int trigger = 1;
         public static final int changeGear = 3;
         public static final int fuelCellEESol = 4;
+        public static final int readRGB = 1;
     }
 
     public static final class xBoxConstants {
@@ -60,9 +64,13 @@ public final class Constants {
         public static final int ry_Axis = 5;
     }
 
-    public static final class controlPanel {
-        
+    public static final class conPanConstants {
         public static final int conPanEESolenoidExtend = 4;
         public static final int conPanEESolenoidRetract = 5;
+        public static final I2C.Port i2cPort = I2C.Port.kOnboard;
+        public static final double[] blue = {0.143, 0.427, 0.429};
+        public static final double[] green = {0.197, 0.561, 0.240};
+        public static final double[] red = {0.561, 0.232, 0.114};
+        public static final double[] yellow = {0.361, 0.524, 0.113};
     }
 }

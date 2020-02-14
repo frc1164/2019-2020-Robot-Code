@@ -8,17 +8,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.RobotContainer;
 
-public class readRGB extends CommandBase {
-  /**
-   * Creates a new ReadRGB.
-   */
-  public readRGB(Vision m_colorSensor) {
+import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorMatch;
+
+public class SetLEDs extends CommandBase {
+  public ControlPanel m_controlPanel;
+  public ColorMatch m_colorMatcher;
+
+  public SetLEDs(ControlPanel m_controlPanel) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_colorSensor = m_colorSensor;
-    addRequirements(m_colorSensor);
+    this.m_controlPanel = m_controlPanel;
+    addRequirements(m_controlPanel);
   }
 
   // Called when the command is initially scheduled.
@@ -29,6 +33,10 @@ public class readRGB extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //Code that sets the LEDs
+    m_controlPanel.getColor();
+    //m_controlPanel.matchColor();
+    //m_controlPanel.printColor();
   }
 
   // Called once the command ends or is interrupted.

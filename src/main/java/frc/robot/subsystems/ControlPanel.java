@@ -8,19 +8,22 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
+
 import frc.robot.Constants.conPanConstants;
 
 public class ControlPanel extends SubsystemBase {
-  private final ColorSensorV3 m_colorSensor;
-  private final ColorMatch m_colorMatch;
+  public final ColorSensorV3 m_colorSensor;
+  public final ColorMatch m_colorMatcher;
+  private Color detectedColor;
+  private String colorString;
+  private ColorMatchResult match;
+
   private final Color kBlueTarget;
   private final Color kGreenTarget;
   private final Color kRedTarget;
@@ -30,17 +33,59 @@ public class ControlPanel extends SubsystemBase {
    * Creates a new ControlPanel.
    */
   public ControlPanel() {
-
+    m_colorSensor = new ColorSensorV3(conPanConstants.i2cPort);
+    m_colorMatcher = new ColorMatch();
     
   //Calibrates RGB values colors
-  public void calibrateRGB() {
-  kBlueTarget = ColorMatch.makeColor(conPanConstants.blue[0], conPanConstants.blue[1], conPanConstants.blue[2]);
-  kGreenTarget = ColorMatch.makeColor(conPanConstants.green[0], conPanConstants.green[1], conPanConstants.green[2]);
-  kRedTarget = ColorMatch.makeColor(conPanConstants.red[0], conPanConstants.red[1], conPanConstants.red[2]);
-  kYellowTarget = ColorMatch.makeColor(conPanConstants.yellow[0], conPanConstants.yellow[1], conPanConstants.yellow[2]);
+    kBlueTarget = ColorMatch.makeColor(conPanConstants.blue[0], conPanConstants.blue[1], conPanConstants.blue[2]);
+    kGreenTarget = ColorMatch.makeColor(conPanConstants.green[0], conPanConstants.green[1], conPanConstants.green[2]);
+    kRedTarget = ColorMatch.makeColor(conPanConstants.red[0], conPanConstants.red[1], conPanConstants.red[2]);
+    kYellowTarget = ColorMatch.makeColor(conPanConstants.yellow[0], conPanConstants.yellow[1], conPanConstants.yellow[2]);
+
+  //Assigns colors to matcher
+    m_colorMatcher.addColorMatch(kBlueTarget);
+    m_colorMatcher.addColorMatch(kGreenTarget);
+    m_colorMatcher.addColorMatch(kRedTarget);
+    m_colorMatcher.addColorMatch(kYellowTarget);  
+  } 
+    
+  //Gets color (helpful for LED programming, etc.)
+  public void getColor() {
+    SmartDashboard.putString("Beginning Detect Color", "No Results Yet");
+    detectedColor = m_colorSensor.getColor();
+    System.out.println("" + detectedColor);
+    SmartDashboard.putString("Detected Color", detectedColor.toString());
   }
 
+  //Sets string to matched color
+  public void matchColor() {  
+  match = m_colorMatcher.matchClosestColor(detectedColor);
+
+    if (match.color == kBlueTarget) {
+      colorString = "Blue";
+    } 
+    else if (match.color == kRedTarget) {
+      colorString = "Red";
+    } 
+    else if (match.color == kGreenTarget) {
+      colorString = "Green";
+    } 
+    else if (match.color == kYellowTarget) {
+      colorString = "Yellow";
+    } 
+    else {
+      colorString = "Unknown";
+    }
+    System.out.println("" + colorString);
   }
+
+  //Prints color to SmartDashboard
+  public void printColor() {
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    SmartDashboard.putString("Detected Color", colorString);
+    }
 
   @Override
   public void periodic() {
