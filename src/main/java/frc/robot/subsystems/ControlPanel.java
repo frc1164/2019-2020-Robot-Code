@@ -15,13 +15,19 @@ import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 
+import frc.robot.Constants;
 import frc.robot.Constants.conPanConstants;
 
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 public class ControlPanel extends SubsystemBase {
+  private final TalonSRX talon = new TalonSRX(conPanConstants.talon);
   public final ColorSensorV3 m_colorSensor;
   public final ColorMatch m_colorMatcher;
   private Color detectedColor;
-  private String colorString;
+  public static String colorString = "Unknown";
   private ColorMatchResult match;
 
   private final Color kBlueTarget;
@@ -51,10 +57,7 @@ public class ControlPanel extends SubsystemBase {
     
   //Gets color (helpful for LED programming, etc.)
   public void getColor() {
-    SmartDashboard.putString("Beginning Detect Color", "No Results Yet");
     detectedColor = m_colorSensor.getColor();
-    System.out.println("" + detectedColor);
-    SmartDashboard.putString("Detected Color", detectedColor.toString());
   }
 
   //Sets string to matched color
@@ -76,7 +79,6 @@ public class ControlPanel extends SubsystemBase {
     else {
       colorString = "Unknown";
     }
-    System.out.println("" + colorString);
   }
 
   //Prints color to SmartDashboard
@@ -86,6 +88,12 @@ public class ControlPanel extends SubsystemBase {
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     SmartDashboard.putString("Detected Color", colorString);
     }
+
+  //Control panel motor
+  public void conPanSpeed(double conPanSpeed) {
+    talon.set(ControlMode.PercentOutput, conPanSpeed);
+    SmartDashboard.putNumber("conPanTalon", conPanSpeed);
+  }
 
   @Override
   public void periodic() {

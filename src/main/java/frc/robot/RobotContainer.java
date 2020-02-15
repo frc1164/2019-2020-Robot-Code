@@ -29,7 +29,7 @@ import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
 import frc.robot.commands.FuelCellEEMot;
-import frc.robot.commands.SetLEDs;
+import frc.robot.commands.SetColor;
 
 
 
@@ -93,8 +93,8 @@ public class RobotContainer {
     new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
                        .whenPressed(new FuelCellEESol(m_FuelCellEE));
 
-    new JoystickButton(m_DriverStick, joyStickConstants.readRGB)
-                       .whileHeld(new SetLEDs(m_ControlPanel));
+    new JoystickButton(m_OperatorController, xBoxConstants.setColor)
+                       .whileHeld(new SetColor(m_ControlPanel));
   }
 
 
