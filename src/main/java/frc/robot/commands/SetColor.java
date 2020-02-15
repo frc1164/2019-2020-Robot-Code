@@ -10,6 +10,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.Constants.conPanConstants;
+
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants.xBoxConstants;
+
 import frc.robot.RobotContainer;
 
 import com.revrobotics.ColorSensorV3;
@@ -45,12 +49,15 @@ public class SetColor extends CommandBase {
     else {
       m_controlPanel.conPanSpeed(0);
     }
+
+    if (m_OperatorController.getRawButton(xBoxConstants.setColor) == false) {
+      m_controlPanel.conPanSpeed(0);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_controlPanel.conPanSpeed(0);
   }
 
   // Returns true when the command should end.
