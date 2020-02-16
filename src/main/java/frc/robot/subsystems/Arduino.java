@@ -9,9 +9,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Timer;
-
 
 public class Arduino extends SubsystemBase {
   /**
@@ -19,12 +16,8 @@ public class Arduino extends SubsystemBase {
    */
 
    public SerialPort arduino;
-   public Timer timer;
+
   public Arduino() {
-
-  }
-
-  public void isConnected(){
     try{
       arduino = new SerialPort(9600, SerialPort.Port.kUSB);
       System.out.println("USB1 connected");
@@ -50,18 +43,32 @@ public class Arduino extends SubsystemBase {
     }
   }
 
-  public void sendByte() {
-      //Output that we wrote to the arduino, write our "trigger byte"
-      //to the arduino and reset the timer for next time
-      System.out.println("Wrote to Arduino");
-      arduino.write(new byte[] {0x12}, 1);
+  public void sendRed() {
+    arduino.write(new byte[] {0x12}, 1);
+    System.out.println("Sent Red");
+  }
 
-    //If we've received something, read the entire buffer
-    //from the arduino as a string
+  public void sendGreen() {
+    arduino.write(new byte[] {0x13}, 1);
+    System.out.println("Sent Green");
+  }
+
+  public void sendBlue() {
+    arduino.write(new byte[] {0x14}, 1);
+    System.out.println("Sent Blue");
+  }
+
+  public void sendYellow() {
+    arduino.write(new byte[] {0x15}, 1);
+    System.out.println("Sent Yellow");
+  }
+
+  public void readArduino() {
     if(arduino.getBytesReceived() > 0) {
       System.out.print(arduino.readString());
     }
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
