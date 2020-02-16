@@ -14,10 +14,14 @@ import frc.robot.subsystems.Chassis;
 
 public class SeekGoal extends CommandBase {
   private final Chassis m_Chassis;
+  private final Double kP = 0.0;
+  private final Double kI = 0.0;
+  private final Double kD = 0.0;
+  
   private final PIDController m_PID = new PIDController(
-    SmartDashboard.getNumber("kP", 0.0), 
-    SmartDashboard.getNumber("kI", 0.0), 
-    SmartDashboard.getNumber("kD", 0.0));
+    SmartDashboard.getNumber("kP", kP), 
+    SmartDashboard.getNumber("kI", kI), 
+    SmartDashboard.getNumber("kD", kD));
 
   /**
    * Creates a new SeekBall.
@@ -38,7 +42,9 @@ public class SeekGoal extends CommandBase {
     if (Vision.get_lltarget()) {
       double Speed_R;
       double Speed_L;
-      double exponent;
+      SmartDashboard.putNumber("kP", kP);
+      SmartDashboard.putNumber("kI", kI); 
+      SmartDashboard.putNumber("kD", kD);
 
       if (Vision.get_llx() > 8) {
         Speed_L = -((Math.abs(Vision.get_llx()) * 0.02));
