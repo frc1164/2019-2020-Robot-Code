@@ -6,33 +6,25 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import com.revrobotics.ColorMatch;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.Constants.conPanConstants;
-
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.Constants.xBoxConstants;
-
-import frc.robot.RobotContainer;
-
-import com.revrobotics.ColorSensorV3;
-import com.revrobotics.ColorMatchResult;
-import com.revrobotics.ColorMatch;
 
 public class SetColor extends CommandBase {
   public ControlPanel m_controlPanel;
   public ColorMatch m_colorMatcher;
+  public boolean isMatched;
 
   public SetColor(ControlPanel m_controlPanel) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_controlPanel = m_controlPanel;
-    addRequirements(m_controlPanel);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    isMatched = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,22 +39,24 @@ public class SetColor extends CommandBase {
       m_controlPanel.conPanSpeed(conPanConstants.conPanSpeed);
       }
     else {
-      m_controlPanel.conPanSpeed(0);
-    }
-
-    if (m_OperatorController.getRawButton(xBoxConstants.setColor) == false) {
-      m_controlPanel.conPanSpeed(0);
+      isMatched = true;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_controlPanel.conPanSpeed(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    if (isMatched == true) {
+      return true;
+    }
+    else {
+      return false;
+    }
+    }
   }
-}
