@@ -6,13 +6,19 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
 
 public class SeekGoal extends CommandBase {
   private final Chassis m_Chassis;
+  private final PIDController m_PID = new PIDController(
+    SmartDashboard.getNumber("kP", 0.0), 
+    SmartDashboard.getNumber("kI", 0.0), 
+    SmartDashboard.getNumber("kD", 0.0));
+
   /**
    * Creates a new SeekBall.
    */
@@ -32,18 +38,19 @@ public class SeekGoal extends CommandBase {
     if (Vision.get_lltarget()) {
       double Speed_R;
       double Speed_L;
+      double exponent;
 
       if (Vision.get_llx() > 8) {
-        Speed_L = -(0.20 + (Math.abs(Vision.get_llx()) * 0.02));
-        Speed_R = (0.20 + (Math.abs(Vision.get_llx()) * 0.02));
+        Speed_L = -((Math.abs(Vision.get_llx()) * 0.02));
+        Speed_R = ((Math.abs(Vision.get_llx()) * 0.02));
 
         m_Chassis.leftSpeed(Speed_L);
         m_Chassis.rightSpeed(Speed_R);
       }
 
       if (Vision.get_llx() < 8) {
-        Speed_L = (0.20 + (Math.abs(Vision.get_llx()) * 0.02));
-        Speed_R = -(0.20 + (Math.abs(Vision.get_llx()) * 0.02));
+        Speed_L = (Math.pow(Math.abs(Vision.get_llx()), 3) / 33750);
+        Speed_R = -(Math.pow(Math.abs(Vision.get_llx()), 3) / 33750);
 
         m_Chassis.leftSpeed(Speed_L);
         m_Chassis.rightSpeed(Speed_R);
