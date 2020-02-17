@@ -11,34 +11,42 @@ import com.revrobotics.ColorMatch;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.Constants.conPanConstants;
 
-public class SetColor extends CommandBase {
+public class SetColor extends CommandBase 
+{
   public ControlPanel m_controlPanel;
   public ColorMatch m_colorMatcher;
   public boolean isMatched;
 
-  public SetColor(ControlPanel m_controlPanel) {
+  public SetColor(ControlPanel m_controlPanel) 
+  {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_controlPanel = m_controlPanel;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() 
+  {
     isMatched = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    //Code that sets the LEDs
+  public void execute() 
+  {
+    //Add code that sets the LEDs
     m_controlPanel.getColor();
     m_controlPanel.matchColor();
     m_controlPanel.printColor();
 
-    if (ControlPanel.colorString.compareTo(conPanConstants.FMScolor) != 0) {
+    //if the SmartDashboard output 'colorString' is not equal to the String 'FMScolor,' run the motor
+    if (ControlPanel.colorString.compareTo(conPanConstants.FMScolor) != 0) 
+    {
       m_controlPanel.conPanSpeed(conPanConstants.conPanSpeed);
-      }
-    else {
+    }
+    //else, end the command and turn off the motor
+    else 
+    {
       isMatched = true;
     }
   }
@@ -51,12 +59,13 @@ public class SetColor extends CommandBase {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished() 
+  {
     if (isMatched == true) {
       return true;
     }
     else {
       return false;
     }
-    }
   }
+}

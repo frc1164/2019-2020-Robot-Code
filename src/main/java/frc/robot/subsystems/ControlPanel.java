@@ -24,16 +24,18 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class ControlPanel extends SubsystemBase {
   private final TalonSRX talon = new TalonSRX(conPanConstants.talon);
-  public final ColorSensorV3 m_colorSensor;
-  public final ColorMatch m_colorMatcher;
-  private Color detectedColor;
-  public static String colorString = "Unknown";
-  private ColorMatchResult match;
 
   private final Color kBlueTarget;
   private final Color kGreenTarget;
   private final Color kRedTarget;
   private final Color kYellowTarget;
+
+  public final ColorSensorV3 m_colorSensor;
+  public final ColorMatch m_colorMatcher;
+
+  public static Color detectedColor;
+  public static String colorString = "Unknown";
+  public static ColorMatchResult match;
 
   /**
    * Creates a new ControlPanel.
