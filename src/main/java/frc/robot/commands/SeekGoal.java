@@ -6,22 +6,25 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.controller.PIDController;
+//import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
 
 public class SeekGoal extends CommandBase {
   private final Chassis m_Chassis;
-  private final Double kP = 0.0;
+  
+  /*private final Double kP = 0.0;
   private final Double kI = 0.0;
   private final Double kD = 0.0;
   
   private final PIDController m_PID = new PIDController(
     SmartDashboard.getNumber("kP", kP), 
     SmartDashboard.getNumber("kI", kI), 
-    SmartDashboard.getNumber("kD", kD));
+    SmartDashboard.getNumber("kD", kD));*/
+
+
 
   /**
    * Creates a new SeekBall.
@@ -38,13 +41,11 @@ public class SeekGoal extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
+
   public void execute() {
     if (Vision.get_lltarget()) {
       double Speed_R;
       double Speed_L;
-      SmartDashboard.putNumber("kP", kP);
-      SmartDashboard.putNumber("kI", kI); 
-      SmartDashboard.putNumber("kD", kD);
 
       if (Vision.get_llx() > 8) {
         Speed_L = -((Math.abs(Vision.get_llx()) * 0.02));
