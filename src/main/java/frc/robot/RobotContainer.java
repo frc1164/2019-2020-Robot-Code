@@ -21,14 +21,15 @@ import frc.robot.Constants.xBoxConstants;
 import frc.robot.subsystems.FuelCellEE;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Pixy;
 
 //Commands
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
+import frc.robot.commands.bigBlock;
 import frc.robot.commands.FuelCellEEMot;
-
-
+import frc.robot.commands.setPLED;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -43,9 +44,9 @@ public class RobotContainer {
   private final FuelCellEEMot m_FuelCellEEMot;
   private final FuelCellEE m_FuelCellEE;
   private final Vision m_Vision;
+  private final Pixy m_Pixy;
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
-
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -56,6 +57,7 @@ public class RobotContainer {
     m_Vision = new Vision();
     m_Chassis = new Chassis();
     m_FuelCellEE = new FuelCellEE();
+    m_Pixy = new Pixy();
 
     //Set Autonomous Commands
 
@@ -86,8 +88,13 @@ public class RobotContainer {
 
     new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
                        .whenPressed(new FuelCellEESol(m_FuelCellEE));
-  }
+    
+    new JoystickButton(m_OperatorController, xBoxConstants.X_BUTTON)
+                        .whenPressed(new setPLED(m_Pixy));
 
+    new JoystickButton(m_OperatorController, xBoxConstants.B_BUTTON)
+                        .whileHeld(new bigBlock(m_Pixy));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
