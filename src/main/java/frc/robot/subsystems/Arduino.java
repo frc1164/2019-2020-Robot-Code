@@ -9,8 +9,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Arduino extends SubsystemBase {
+  public static String gameData = null;
+  Timer timer = new Timer();
   /**
    * Creates a new Arduino.
    */
@@ -43,6 +47,11 @@ public class Arduino extends SubsystemBase {
     }
   }
 
+  public static String gameData() {
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
+    return gameData;
+  }
+
   public void sendRed() {
     arduino.write(new byte[] {0x12}, 1);
     System.out.println("Sent Red");
@@ -64,9 +73,11 @@ public class Arduino extends SubsystemBase {
   }
 
   public void readArduino() {
+    timer.start();
     if(arduino.getBytesReceived() > 0) {
       System.out.print(arduino.readString());
     }
+    timer.delay(1);
   }
 
   @Override

@@ -28,6 +28,7 @@ import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
 import frc.robot.commands.FuelCellEEMot;
+import frc.robot.commands.ByteCodes;
 
 
 /**
@@ -44,6 +45,7 @@ public class RobotContainer {
   private final FuelCellEE m_FuelCellEE;
   private final Vision m_Vision;
   private final Arduino m_Arduino;
+  private final ByteCodes m_ByteCodes;
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
 
@@ -64,9 +66,11 @@ public class RobotContainer {
     //Set Default Commands
     m_Drive = new Drive(m_Chassis);
     m_FuelCellEEMot = new FuelCellEEMot(m_FuelCellEE);
+    m_ByteCodes = new ByteCodes(m_Arduino);
 
     m_Chassis.setDefaultCommand(m_Drive);
     m_FuelCellEE.setDefaultCommand(m_FuelCellEEMot);
+    m_Arduino.setDefaultCommand(m_ByteCodes);
 
 
     

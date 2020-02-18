@@ -8,15 +8,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.subsystems.Arduino;
 
 public class ByteCodes extends CommandBase {
   Arduino m_Arduino;
-  boolean ballState = false;
-  boolean targetState = false;
-  String fmsColor = null;
-  String gameData = DriverStation.getInstance().getGameSpecificMessage();
+  static boolean ballState = false;
+  static boolean targetState = false;
+  static String fmsColor = null;
   /**
    * Creates a new ByteCodes.
    */
@@ -34,37 +32,35 @@ public class ByteCodes extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(lltv != targetState){ //needs values from a limelight method(Nick)
+    //if(lltv != targetState){ //needs values from a limelight method(Nick)
       //call bytecode num
-    }
-    if(pixytv != ballState){ //needs values from a pixy method(Jessey/Riva)
+   // }
+    //if(pixytv != ballState){ //needs values from a pixy method(Jessey/Riva)
       //call bytecode num
-    }
-    if(gameData != fmsColor){
-      if(gameData.length() > 0){
-        switch (gameData.charAt(0))
+   // }
+    if(!(Arduino.gameData().equalsIgnoreCase(fmsColor)))  
+        if(Arduino.gameData().length() > 0){
+        switch (Arduino.gameData().charAt(0))
        {
           case 'B' :
-            //Blue case code
+            m_Arduino.sendBlue();
             break;
            case 'G' :
-            //Green case code
+            m_Arduino.sendGreen();
             break;
-          case 'R' :
-            //Red case code
+           case 'R' :
+            m_Arduino.sendRed();
             break;
-          case 'Y' :
-            //Yellow case code
+           case 'Y' :
+            m_Arduino.sendYellow();
             break;
-          default :
+           default :
             //This is corrupt data
             break;
       }
-    } 
-      else {
-        //Code for no data received yet
-      }
+       m_Arduino.readArduino();
     }
+    fmsColor = Arduino.gameData();
   }
 
   // Called once the command ends or is interrupted.
