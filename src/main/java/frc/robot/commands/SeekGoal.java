@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
@@ -40,15 +42,18 @@ public class SeekGoal extends CommandBase {
     P = kP.getDouble(0.0);
     I = kI.getDouble(0.0);
     D = kD.getDouble(0.0);
-    PIDController testPID = new PIDController(P, I, D);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
 
   public void execute() {
-    SmartDashboard.putNumber("test P", P);
-    if (Vision.get_lltarget()) {
+    
+    PIDController testPID = new PIDController(P, I, D);
+    testPID.setSetpoint(0.0);
+    SmartDashboard.putNumber("Output", testPID.calculate(Vision.get_llx()));
+    /*if (Vision.get_lltarget()) {
       double Speed_R;
       double Speed_L;
 
@@ -67,7 +72,7 @@ public class SeekGoal extends CommandBase {
         m_Chassis.leftSpeed(Speed_L);
         m_Chassis.rightSpeed(Speed_R);
       }
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.
