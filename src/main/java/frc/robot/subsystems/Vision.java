@@ -25,6 +25,7 @@ public class Vision extends SubsystemBase {
    * Creates a new Vision.
    */
   public Vision() {
+
     //Sets up Lime Light Network Tables
   table = NetworkTableInstance.getDefault().getTable("limelight");
     tx = table.getEntry("tx");
