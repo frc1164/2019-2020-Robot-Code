@@ -7,8 +7,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pixy;
+import io.github.pseudoresonance.pixy2api.Pixy2CCC.Block;
 
 public class bigBlock extends CommandBase {
   private final Pixy m_Pixy;
@@ -22,13 +24,23 @@ public class bigBlock extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
+
   public void initialize() {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Pixy.largestBlock();
+    Block b = m_Pixy.largestBlock();
+    if (b == null){
+      System.out.println("No Block");
+      SmartDashboard.putString("Block info", "No Ball");
+    }
+    else{
+      System.out.println("Block seen");
+      SmartDashboard.putString("Block info", "Ball Seen");
+      SmartDashboard.putNumber("Block width", b.getWidth());
+    }
   }
 
   // Called once the command ends or is interrupted.
