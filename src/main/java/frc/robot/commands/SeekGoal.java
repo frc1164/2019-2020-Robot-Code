@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
@@ -36,7 +34,7 @@ public class SeekGoal extends CommandBase {
     addRequirements(m_Chassis);
   }
 
-  // Called when the command is initially scheduled.
+  // Called when the command is initially scheduled.-
   @Override
   public void initialize() {
     P = kP.getDouble(0.0);
@@ -52,6 +50,7 @@ public class SeekGoal extends CommandBase {
     
     PIDController testPID = new PIDController(P, I, D);
     testPID.setSetpoint(0.0);
+    testPID.enableContinuousInput(-29.8, 29.8);
     SmartDashboard.putNumber("Output", testPID.calculate(Vision.get_llx()));
     /*if (Vision.get_lltarget()) {
       double Speed_R;
