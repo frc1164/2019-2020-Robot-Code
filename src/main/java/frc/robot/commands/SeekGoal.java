@@ -21,8 +21,10 @@ public class SeekGoal extends CommandBase {
   private NetworkTableEntry kP = tab.add("Line P", 0).getEntry();
   private NetworkTableEntry kI = tab.add("Line I", 0).getEntry();
   private NetworkTableEntry kD = tab.add("Line D", 0).getEntry();
-  private NetworkTableEntry goal = tab.add("x Goal", 7500).getEntry();
-  double P, I, D, PIDGoal;
+  double P, I, D, PIDGoal; {
+  
+  }
+  PIDController testPID = new PIDController(P, I, D);
 
 
 
@@ -37,41 +39,22 @@ public class SeekGoal extends CommandBase {
   // Called when the command is initially scheduled.-
   @Override
   public void initialize() {
-    P = kP.getDouble(0.0);
-    I = kI.getDouble(0.0);
-    D = kD.getDouble(0.0);
-    
+  P = kP.getDouble(0.0);
+  I = kI.getDouble(0.0);
+  D = kD.getDouble(0.0);
+  testPID.setPID(P, I, D);
+  testPID.setSetpoint(0.0);
+  testPID.enableContinuousInput(-29.8, 29.8);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
 
   public void execute() {
-    
-    PIDController testPID = new PIDController(P, I, D);
-    testPID.setSetpoint(0.0);
-    testPID.enableContinuousInput(-29.8, 29.8);
-    SmartDashboard.putNumber("Output", testPID.calculate(Vision.get_llx()));
-    /*if (Vision.get_lltarget()) {
-      double Speed_R;
-      double Speed_L;
-
-      if (Vision.get_llx() > 8) {
-        Speed_L = -((Math.pow(Math.abs(Vision.get_llx()), 3) * 33750));
-        Speed_R = ((Math.pow(Math.abs(Vision.get_llx()), 3) * 33750));
-
-        m_Chassis.leftSpeed(Speed_L);
-        m_Chassis.rightSpeed(Speed_R);
-      }
-
-      if (Vision.get_llx() < 8) {
-        Speed_L = (Math.pow(Math.abs(Vision.get_llx()), 3) / 33750);
-        Speed_R = -(Math.pow(Math.abs(Vision.get_llx()), 3) / 33750);
-
-        m_Chassis.leftSpeed(Speed_L);
-        m_Chassis.rightSpeed(Speed_R);
-      }
-    }*/
+    double PIDout = testPID.calculate(Vision.get_llx());
+    SmartDashboard.putNumber("Output",PIDout);
+    m_Chassis.rightSpeed (-PIDout);
+    m_Chassis.leftSpeed (PIDout);
   }
 
   // Called once the command ends or is interrupted.
