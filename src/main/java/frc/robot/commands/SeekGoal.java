@@ -14,13 +14,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
+import frc.robot.RobotContainer;
 
 public class SeekGoal extends CommandBase {
   private final Chassis m_Chassis;
   private ShuffleboardTab tab = Shuffleboard.getTab("PID Settings");
-  private NetworkTableEntry kP = tab.add("Line P", 0).getEntry();
-  private NetworkTableEntry kI = tab.add("Line I", 0).getEntry();
-  private NetworkTableEntry kD = tab.add("Line D", 0).getEntry();
+  private NetworkTableEntry kP = tab.add("Line P", 0.017).getEntry();
+  private NetworkTableEntry kI = tab.add("Line I", 0.006).getEntry();
+  private NetworkTableEntry kD = tab.add("Line D", 0.003).getEntry();
   double P, I, D, PIDGoal; {
   
   }
@@ -51,10 +52,12 @@ public class SeekGoal extends CommandBase {
   @Override
 
   public void execute() {
+    if (Vision.get_lltarget()) {
     double PIDout = testPID.calculate(Vision.get_llx());
     SmartDashboard.putNumber("Output",PIDout);
     m_Chassis.rightSpeed (-PIDout);
     m_Chassis.leftSpeed (PIDout);
+    }
   }
 
   // Called once the command ends or is interrupted.
