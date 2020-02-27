@@ -16,15 +16,15 @@ import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
 import frc.robot.RobotContainer;
 
-public class SeekGoal extends CommandBase {
+public class CenterGoal extends CommandBase {
   private final Chassis m_Chassis;
   private ShuffleboardTab tab = Shuffleboard.getTab("PID Settings");
   private NetworkTableEntry kP = tab.add("Line P", 0.017).getEntry();
   private NetworkTableEntry kI = tab.add("Line I", 0.006).getEntry();
   private NetworkTableEntry kD = tab.add("Line D", 0.003).getEntry();
   double P, I, D; 
-  public static double PIDout = 0.0;
-  boolean buttonReleased;
+  public static double PIDout;
+  private boolean buttonReleased;
   PIDController testPID = new PIDController(P, I, D);
 
 
@@ -32,7 +32,7 @@ public class SeekGoal extends CommandBase {
   /**
    * Creates a new SeekBall.
    */
-  public SeekGoal(Chassis m_Chassis) {
+  public CenterGoal(Chassis m_Chassis) {
     this.m_Chassis = m_Chassis;
     addRequirements(m_Chassis);
   }
@@ -40,6 +40,7 @@ public class SeekGoal extends CommandBase {
   // Called when the command is initially scheduled.-
   @Override
   public void initialize() {
+  PIDout = 0.0;
   P = kP.getDouble(0.0);
   I = kI.getDouble(0.0);
   D = kD.getDouble(0.0);
