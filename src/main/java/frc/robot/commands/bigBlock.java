@@ -14,7 +14,7 @@ import io.github.pseudoresonance.pixy2api.Pixy2CCC.Block;
 
 public class bigBlock extends CommandBase {
   private final Pixy m_Pixy;
-  private static Block largestBlock = null;
+  private Block largestBlock = null;
   /**
    * Creates a new bigBlock.
    */

@@ -30,6 +30,7 @@ import frc.robot.commands.FuelCellEESol;
 import frc.robot.commands.bigBlock;
 import frc.robot.commands.FuelCellEEMot;
 import frc.robot.commands.setPLED;
+import frc.robot.commands.SeekBall;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
