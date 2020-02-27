@@ -8,6 +8,8 @@
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 //Controllers
 import edu.wpi.first.wpilibj.Joystick;
@@ -48,6 +50,8 @@ public class RobotContainer {
   private final Pixy m_Pixy;
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
+  public static SendableChooser<Command> m_chooser = new SendableChooser<>();
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -75,6 +79,16 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+
+    //define auto commands
+    final Command m_simpleAuto = new ChangeGear(m_Chassis);
+    final Command m_complexAuto = new ChangeGear(m_Chassis);
+    //Autonomous chooser options
+    m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
+    m_chooser.addOption("Complex Auto", m_complexAuto);
+
+    // Put the chooser on the dashboard
+    Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
 
   /**
