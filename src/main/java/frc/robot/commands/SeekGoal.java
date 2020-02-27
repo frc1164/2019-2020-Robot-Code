@@ -22,9 +22,9 @@ public class SeekGoal extends CommandBase {
   private NetworkTableEntry kP = tab.add("Line P", 0.017).getEntry();
   private NetworkTableEntry kI = tab.add("Line I", 0.006).getEntry();
   private NetworkTableEntry kD = tab.add("Line D", 0.003).getEntry();
-  double P, I, D, PIDGoal; {
-  
-  }
+  double P, I, D; 
+  public static double PIDout = 0.0;
+  boolean buttonReleased;
   PIDController testPID = new PIDController(P, I, D);
 
 
@@ -52,22 +52,25 @@ public class SeekGoal extends CommandBase {
   @Override
 
   public void execute() {
+    buttonReleased = false;
     if (Vision.get_lltarget()) {
-    double PIDout = testPID.calculate(Vision.get_llx());
-    SmartDashboard.putNumber("Output",PIDout);
-    m_Chassis.rightSpeed (-PIDout);
-    m_Chassis.leftSpeed (PIDout);
+    PIDout = testPID.calculate(Vision.get_llx());
+    //m_Chassis.rightSpeed (-PIDout);
+    //m_Chassis.leftSpeed (PIDout);
     }
+    SmartDashboard.putNumber("test Vision", PIDout);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    PIDout = 0.0;
+    buttonReleased = true;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return buttonReleased;
   }
 }

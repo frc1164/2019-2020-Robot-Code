@@ -7,10 +7,13 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Chassis;
 import frc.robot.Constants.joyStickConstants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.SeekGoal;
 
 
 public class Drive extends CommandBase {
@@ -32,6 +35,7 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     double forward = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.y_Axis);
     double turn = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.x_Axis);
     double scalar = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.slider);
@@ -42,8 +46,10 @@ public class Drive extends CommandBase {
     double leftMSpeed = ((-scalar*forward) - turn);
     double rightMSpeed = ((-scalar*forward) + turn);
 
-    m_Chassis.leftSpeed(leftMSpeed);
-    m_Chassis.rightSpeed(rightMSpeed);
+    m_Chassis.leftSpeed(leftMSpeed + SeekGoal.PIDout);
+    m_Chassis.rightSpeed(rightMSpeed - SeekGoal.PIDout);
+    SmartDashboard.putNumber("test Command", SeekGoal.PIDout);
+    
   }
 
   // Called once the command ends or is interrupted.
