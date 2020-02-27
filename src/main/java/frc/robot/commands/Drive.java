@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Chassis;
 import frc.robot.Constants.joyStickConstants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.SeekGoal;
 
 
 public class Drive extends CommandBase {
@@ -46,9 +45,9 @@ public class Drive extends CommandBase {
     double leftMSpeed = ((-scalar*forward) - turn);
     double rightMSpeed = ((-scalar*forward) + turn);
 
-    m_Chassis.leftSpeed(leftMSpeed + SeekGoal.PIDout);
-    m_Chassis.rightSpeed(rightMSpeed - SeekGoal.PIDout);
-    SmartDashboard.putNumber("test Command", SeekGoal.PIDout);
+    m_Chassis.leftSpeed(leftMSpeed + CenterGoal.PIDout);
+    m_Chassis.rightSpeed(rightMSpeed - CenterGoal.PIDout);
+    SmartDashboard.putNumber("test Command", CenterGoal.PIDout);
     
   }
 

@@ -27,7 +27,7 @@ import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
 import frc.robot.commands.PrintLLvalues;
-import frc.robot.commands.SeekGoal;
+import frc.robot.commands.CenterGoal;
 import frc.robot.commands.FuelCellEEMot;
 
 
@@ -97,7 +97,7 @@ public class RobotContainer {
     new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
                       .whenPressed(new FuelCellEESol(m_FuelCellEE));
     new JoystickButton(m_OperatorController, xBoxConstants.seekGoal)
-                      .whileHeld(new SeekGoal(m_Chassis));
+                      .whileHeld(new CenterGoal(m_Chassis));
   }
 
 
