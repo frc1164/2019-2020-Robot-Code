@@ -14,10 +14,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
-import frc.robot.RobotContainer;
 
 public class CenterGoal extends CommandBase {
-  private final Chassis m_Chassis;
+  private final Vision m_Vision;
   private ShuffleboardTab tab = Shuffleboard.getTab("PID Settings");
   private NetworkTableEntry kP = tab.add("Line P", 0.017).getEntry();
   private NetworkTableEntry kI = tab.add("Line I", 0.006).getEntry();
@@ -32,9 +31,8 @@ public class CenterGoal extends CommandBase {
   /**
    * Creates a new SeekBall.
    */
-  public CenterGoal(Chassis m_Chassis) {
-    this.m_Chassis = m_Chassis;
-    addRequirements(m_Chassis);
+  public CenterGoal(Vision m_Vision) {
+    this.m_Vision = m_Vision;
   }
 
   // Called when the command is initially scheduled.-

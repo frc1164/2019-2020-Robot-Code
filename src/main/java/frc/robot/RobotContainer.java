@@ -97,7 +97,7 @@ public class RobotContainer {
     new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
                       .whenPressed(new FuelCellEESol(m_FuelCellEE));
     new JoystickButton(m_OperatorController, xBoxConstants.seekGoal)
-                      .whileHeld(new CenterGoal(m_Chassis));
+                      .whileHeld(new CenterGoal(m_Vision));
   }
 
 

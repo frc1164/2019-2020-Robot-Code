@@ -18,7 +18,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class Vision extends SubsystemBase {
   public static NetworkTable table;
   public static NetworkTableEntry tx, ty, ta, tv;
-  
   LinkedList<Double> LLvalues = new LinkedList<Double>();
 
   /**
