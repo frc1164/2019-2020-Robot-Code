@@ -94,7 +94,7 @@ public class RobotContainer {
                         .whenPressed(new setPLED(m_Pixy));
 
     new JoystickButton(m_OperatorController, xBoxConstants.B_BUTTON)
-                        .whileHeld(new bigBlock(m_Pixy));
+                        .whileHeld(new SeekBall(m_Chassis, m_Pixy));
   }
 
   /**

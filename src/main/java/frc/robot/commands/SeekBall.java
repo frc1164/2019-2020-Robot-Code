@@ -21,7 +21,6 @@ import io.github.pseudoresonance.pixy2api.Pixy2CCC.Block;
 public class SeekBall extends CommandBase {
   private final Chassis m_Chassis;
   private final Pixy m_Pixy;
-  private Block largestBlock = null;
 
   private ShuffleboardTab tab = Shuffleboard.getTab("PID Settings");
   private NetworkTableEntry kP = tab.add("Line P", 0.017).getEntry();
@@ -52,16 +51,18 @@ public class SeekBall extends CommandBase {
   testPID.setPID(P, I, D);
   testPID.setSetpoint(158);
   testPID.enableContinuousInput(0, 315);
+  testPID.setTolerance(40);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
 
   public void execute() {
-    Block ball = m_Pixy.largestBlock(largestBlock);
+    Block ball = m_Pixy.largestBlock();
     if (m_Pixy.byteBool(ball)) {
     double PIDout = testPID.calculate(m_Pixy.getXAxis(ball));
     SmartDashboard.putNumber("Output",PIDout);
+    //PIDout = (Math.abs(PIDout) <= 0.1) ? 0 : PIDout;
     m_Chassis.rightSpeed (-PIDout);
     m_Chassis.leftSpeed (PIDout);
     }
