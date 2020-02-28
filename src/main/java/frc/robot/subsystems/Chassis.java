@@ -13,12 +13,17 @@ import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.AnalogInput;
+
 public class Chassis extends SubsystemBase {
   private final VictorSPX leftMotorRear = new VictorSPX(driveConstants.leftMotorRear);
   private final VictorSPX rightMotorRear = new VictorSPX(driveConstants.rightMotorRear);
   private final VictorSPX leftMotorFront = new VictorSPX(driveConstants.leftMotorFront);
   private final VictorSPX rightMotorFront = new VictorSPX(driveConstants.rightMotorFront);
   private final Solenoid leftLowSol, leftHighSol, rightLowSol, rightHighSol;
+  private double currentDistance;
+  private final AnalogInput m_ultrasonic;
 
   /**
    * Creates a new Chassis.
@@ -28,6 +33,7 @@ public class Chassis extends SubsystemBase {
     leftHighSol = new Solenoid(driveConstants.PCM, driveConstants.leftHighSol);
     rightLowSol = new Solenoid(driveConstants.PCM, driveConstants.rightLowSol);
     rightHighSol = new Solenoid(driveConstants.PCM, driveConstants.rightHighSol);
+    m_ultrasonic = new AnalogInput(driveConstants.ultrasonicPort);
   }
 
 //not sure if this needs to be in Periodic
@@ -50,6 +56,12 @@ public class Chassis extends SubsystemBase {
     rightLowSol.set(!isHigh);
     leftHighSol.set(isHigh);
     rightHighSol.set(isHigh);
+  }
+
+  public void currentDistance() {
+    // sensor returns a value from 0-4095 that is scaled to inches
+    currentDistance = m_ultrasonic.getValue(); //* driveConstants.valueToInches;
+    SmartDashboard.putNumber("Current distance (in)", currentDistance);
   }
 
   @Override
