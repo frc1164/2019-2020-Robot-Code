@@ -17,6 +17,7 @@ public class PrintLLvalues extends CommandBase {
    */
   public PrintLLvalues(Vision m_Vision) {
     this.m_Vision = m_Vision;
+    addRequirements(m_Vision);
   }
 
   // Called when the command is initially scheduled.

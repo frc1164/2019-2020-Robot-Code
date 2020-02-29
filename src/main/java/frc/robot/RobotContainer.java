@@ -8,6 +8,8 @@
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 //Controllers
 import edu.wpi.first.wpilibj.Joystick;
@@ -54,6 +56,8 @@ public class RobotContainer {
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
 
+  //Define/Instantiate Chooser
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -64,8 +68,6 @@ public class RobotContainer {
     m_Vision = new Vision();
     m_Chassis = new Chassis();
     m_FuelCellEE = new FuelCellEE();
-
-    //Set Autonomous Commands
 
     //Set Default Commands
     m_Drive = new Drive(m_Chassis);
@@ -87,7 +89,9 @@ public class RobotContainer {
     final Command m_simpleAuto = new ChangeGear(m_Chassis);
     final Command m_complexAuto = new ChangeGear(m_Chassis);
     final Command m_driveOffLine = new A_Drive(m_Chassis);
+
     //Autonomous chooser options
+   
     m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
     m_chooser.addOption("Complex Auto", m_complexAuto);
     m_chooser.addOption("Drive Off Line", m_driveOffLine);
@@ -118,6 +122,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_chooser;
+    return  m_chooser.getSelected();
   }
 }
