@@ -7,12 +7,8 @@
 
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import java.util.LinkedList;
-
-import javax.swing.text.TableView.TableCell;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -20,7 +16,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Vision extends SubsystemBase {
   public static NetworkTable table;
-  public static NetworkTableEntry tx, ty, ta;
+  public static NetworkTableEntry tx, ty, ta, tv;
   
   LinkedList<Double> LLvalues = new LinkedList<Double>();
 
@@ -33,8 +29,15 @@ public class Vision extends SubsystemBase {
     tx = table.getEntry("tx");
     ty = table.getEntry("ty");
     ta = table.getEntry("ta");
+    tv = table.getEntry("tv");
   }
   
+  //Method for LimeLight valid target
+  private boolean get_lltarget() {
+    boolean LLt = tx.getBoolean(false);
+    return LLt;
+  }
+
   //Method for LimeLight x_axis
   private double get_llx() {
     double LLx = tx.getDouble(0.0);
@@ -53,12 +56,44 @@ public class Vision extends SubsystemBase {
     return LLarea;
   }
   
-  //Displays LimeLight Value
+  //Displays LimeLight Valu
   public void printLLvalues() {
+    SmartDashboard.putBoolean("Object Detected", get_lltarget());
     SmartDashboard.putNumber("LimelightX", get_llx());
     SmartDashboard.putNumber("LimelightY", get_lly());
     SmartDashboard.putNumber("LimelightArea", get_llarea() );
   }
+
+  /*
+  public void offsetgoalvalues() {
+    double Speed_L;
+    double Speed_R;
+    
+     public Rightoffset() {
+      if (get_llx() > 8) {
+        Speed_R = (0.20 + (Math.abs(get_llx()) * 0.02));
+      }
+
+      if (get_llx() < 8) {
+        Speed_R = -(0.20 + (Math.abs(get_llx()) * 0.02));
+      }
+
+      return Speed_R;
+    }
+
+    public Leftoffset() {
+      if (get_llx() > 8) {
+        Speed_L = (0.20 + (Math.abs(get_llx()) * 0.02));
+      }
+
+      if (get_llx() < 8) {
+        Speed_L = -(0.20 + (Math.abs(get_llx()) * 0.02));
+      }
+
+      return Speed_L;
+    }
+    
+  }*/
 
   @Override
   public void periodic() {
