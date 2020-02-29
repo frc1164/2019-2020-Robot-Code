@@ -32,6 +32,7 @@ import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
 import frc.robot.commands.bigBlock;
 import frc.robot.commands.PrintLLvalues;
+import frc.robot.commands.CenterGoal;
 import frc.robot.commands.FuelCellEEMot;
 import frc.robot.commands.setPLED;
 import frc.robot.commands.SeekBall;
@@ -127,7 +128,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(m_DriverStick, joyStickConstants.changeGear)
-                       .whenPressed(new ChangeGear(m_Chassis));
+                      .whenPressed(new ChangeGear(m_Chassis));
 
     new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
                        .whenPressed(new FuelCellEESol(m_FuelCellEE));
@@ -137,6 +138,8 @@ public class RobotContainer {
 
     new JoystickButton(m_OperatorController, xBoxConstants.B_BUTTON)
                         .whileHeld(new SeekBall(m_Chassis, m_Pixy));
+    new JoystickButton(m_OperatorController, xBoxConstants.Y_BUTTON)
+                      .whileHeld(new CenterGoal(m_Vision));
   }
 
 

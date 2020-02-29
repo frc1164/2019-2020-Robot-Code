@@ -30,7 +30,6 @@ public class Chassis extends SubsystemBase {
     rightHighSol = new Solenoid(driveConstants.PCM, driveConstants.rightHighSol);
   }
 
-//not sure if this needs to be in Periodic
   public void leftSpeed(double speed) {
     leftMotorRear.setInverted(driveConstants.invertLeftMotorRear);
     leftMotorFront.setInverted(driveConstants.invertLeftMotorFront);

@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Chassis;
 import frc.robot.Constants.joyStickConstants;
@@ -32,6 +32,7 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     double forward = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.y_Axis);
     double turn = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.x_Axis);
     double scalar = RobotContainer.m_DriverStick.getRawAxis(joyStickConstants.slider);
@@ -42,8 +43,10 @@ public class Drive extends CommandBase {
     double leftMSpeed = ((-scalar*forward) - turn);
     double rightMSpeed = ((-scalar*forward) + turn);
 
-    m_Chassis.leftSpeed(leftMSpeed + SeekBall.PIDout);
-    m_Chassis.rightSpeed(rightMSpeed - SeekBall.PIDout);
+    m_Chassis.leftSpeed(leftMSpeed + CenterGoal.PIDout + SeekBall.PIDout);
+    m_Chassis.rightSpeed(rightMSpeed - CenterGoal.PIDout - SeekBall.PIDout);
+    SmartDashboard.putNumber("test Command", CenterGoal.PIDout);
+    
   }
 
   // Called once the command ends or is interrupted.
