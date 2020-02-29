@@ -24,7 +24,6 @@ import frc.robot.subsystems.Chassis;
 
 //Commands
 import frc.robot.commands.ChangeGear;
-import frc.robot.commands.CurrentDistance;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
 import frc.robot.commands.PrintLLvalues;
@@ -96,9 +95,6 @@ public class RobotContainer {
 
     new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
                        .whenPressed(new FuelCellEESol(m_FuelCellEE));
-
-    new JoystickButton(m_OperatorController, xBoxConstants.Y_BUTTON)
-                        .whileHeld(new CurrentDistance(m_Chassis));
   }
 
 
