@@ -38,6 +38,11 @@ public class FuelCellEE extends SubsystemBase {
     SmartDashboard.putNumber("Talon Velocity", fuelCellEEMot.getSelectedSensorVelocity());
   }
 
+  public void fuelCellEERaise(boolean raise) {
+    fuelCellEESolenoidRetract.set(!raise);
+    fuelCellEESolenoidExtend.set(raise);
+  }
+
   public void fuelCellEEFlip(boolean isExtended) {
     fuelCellEESolenoidRetract.set(!isExtended);
     fuelCellEESolenoidExtend.set(isExtended);

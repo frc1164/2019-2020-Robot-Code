@@ -42,8 +42,8 @@ public final class Constants {
     public static final class fuelCellEEConstants {
         public static final int fuelCellEEMot = 12;
         public static final boolean invertFuelCellEEMot = false;
-        public static final int fuelCellEESolenoidExtend = 5;
-        public static final int fuelCellEESolenoidRetract = 2;
+        public static final int fuelCellEESolenoidExtend = 2;
+        public static final int fuelCellEESolenoidRetract = 5;
     }
 
     public static final class joyStickConstants {

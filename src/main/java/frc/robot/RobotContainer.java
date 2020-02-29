@@ -40,6 +40,7 @@ import frc.robot.commands.ByteCodes;
 
 //Auto Commands
 import frc.robot.commands.Auto.A_Drive;
+import frc.robot.commands.Auto.A_Score;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -81,9 +82,6 @@ public class RobotContainer {
     m_Pixy = new Pixy();
     m_Arduino = new Arduino();
 
-
-    //Set Autonomous Commands
-
     //Set Default Commands
     m_Drive = new Drive(m_Chassis);
     m_FuelCellEEMot = new FuelCellEEMot(m_FuelCellEE);
@@ -109,7 +107,7 @@ public class RobotContainer {
 
     //define auto commands
     final Command m_simpleAuto = new ChangeGear(m_Chassis);
-    final Command m_complexAuto = new ChangeGear(m_Chassis);
+    final Command m_complexAuto = new A_Score(m_Chassis, m_FuelCellEE);
     final Command m_driveOffLine = new A_Drive(2, .3, m_Chassis);
 
     //Autonomous chooser options
