@@ -21,11 +21,13 @@ import io.github.pseudoresonance.pixy2api.Pixy2CCC.Block;
 public class SeekBall extends CommandBase {
   private final Chassis m_Chassis;
   private final Pixy m_Pixy;
+  public static double PIDout;
+  private boolean buttonReleased;
 
   private ShuffleboardTab tab = Shuffleboard.getTab("PID Settings");
-  private NetworkTableEntry kP = tab.add("Line P", 0.017).getEntry();
-  private NetworkTableEntry kI = tab.add("Line I", 0.006).getEntry();
-  private NetworkTableEntry kD = tab.add("Line D", 0.003).getEntry();
+  private NetworkTableEntry kP = tab.add("Line P", 0.006).getEntry();
+  private NetworkTableEntry kI = tab.add("Line I", 0.0015).getEntry();
+  private NetworkTableEntry kD = tab.add("Line D", 0.0005).getEntry();
   double P, I, D, PIDGoal; {
   
   }
@@ -39,7 +41,6 @@ public class SeekBall extends CommandBase {
   public SeekBall(Chassis m_Chassis, Pixy m_Pixy) {
     this.m_Chassis = m_Chassis;
     this.m_Pixy = m_Pixy;
-    addRequirements(m_Chassis);
   }
 
   // Called when the command is initially scheduled.-
@@ -51,31 +52,31 @@ public class SeekBall extends CommandBase {
   testPID.setPID(P, I, D);
   testPID.setSetpoint(158);
   testPID.enableContinuousInput(0, 315);
-  testPID.setTolerance(40);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
 
   public void execute() {
+    buttonReleased = false;
     Block ball = m_Pixy.largestBlock();
     if (m_Pixy.byteBool(ball)) {
-    double PIDout = testPID.calculate(m_Pixy.getXAxis(ball));
+    PIDout = testPID.calculate(m_Pixy.getXAxis(ball));
     SmartDashboard.putNumber("Output",PIDout);
-    //PIDout = (Math.abs(PIDout) <= 0.1) ? 0 : PIDout;
-    m_Chassis.rightSpeed (-PIDout);
-    m_Chassis.leftSpeed (PIDout);
+
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    PIDout = 0.0;
+    buttonReleased = true;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return buttonReleased;
   }
 }

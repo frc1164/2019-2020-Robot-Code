@@ -71,8 +71,12 @@ public class Pixy extends SubsystemBase {
   }
 
   public boolean byteBool(Block largestBlock){
-    if (largestBlock != null);
+    if (largestBlock != null){
       return true;
+    }
+    else{
+      return false;
+    }
   }
 
   public int getXAxis(Block largestBlock){
