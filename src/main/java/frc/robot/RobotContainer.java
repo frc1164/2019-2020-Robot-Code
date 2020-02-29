@@ -34,6 +34,7 @@ import frc.robot.commands.bigBlock;
 import frc.robot.commands.PrintLLvalues;
 import frc.robot.commands.CenterGoal;
 import frc.robot.commands.FuelCellMot;
+import frc.robot.commands.FuelCellMotOut;
 import frc.robot.commands.setPLED;
 import frc.robot.commands.SeekBall;
 import frc.robot.commands.ByteCodes;
@@ -108,7 +109,7 @@ public class RobotContainer {
 
     //define auto commands
     final Command m_simpleAuto = new ChangeGear(m_Chassis);
-    final Command m_complexAuto = new A_MoveRaiseFC(m_Chassis, m_FuelCell);
+    final Command m_complexAuto = new A_Score(m_Chassis, m_FuelCell);
     final Command m_driveOffLine = new A_Drive(2, .3, m_Chassis);
 
     //Autonomous chooser options
@@ -139,6 +140,9 @@ public class RobotContainer {
 
     new JoystickButton(m_OperatorController, xBoxConstants.B_BUTTON)
                         .whileHeld(new SeekBall(m_Chassis, m_Pixy));
+                        
+    new JoystickButton(m_OperatorController, xBoxConstants.RIGHT_BUMPER)
+                        .whileHeld(new FuelCellMotOut(m_FuelCell));
 
     new JoystickButton(m_OperatorController, xBoxConstants.Y_BUTTON)
                       .whileHeld(new CenterGoal(m_Vision));

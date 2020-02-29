@@ -24,7 +24,7 @@ public class A_Score extends SequentialCommandGroup {
     
     super(
       new A_MoveRaiseFC(m_Chassis, m_FuelCell),
-      new FuelCellMotOut(m_FuelCell)
+      new A_FCEEmot(2, .3, m_FuelCell)
     );
   }
 }
