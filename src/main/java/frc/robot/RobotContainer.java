@@ -22,6 +22,7 @@ import frc.robot.subsystems.FuelCellEE;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Pixy;
+import frc.robot.subsystems.Arduino;
 
 //Commands
 import frc.robot.commands.ChangeGear;
@@ -32,6 +33,8 @@ import frc.robot.commands.PrintLLvalues;
 import frc.robot.commands.FuelCellEEMot;
 import frc.robot.commands.setPLED;
 import frc.robot.commands.SeekBall;
+import frc.robot.commands.ByteCodes;
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -53,6 +56,8 @@ public class RobotContainer {
   private final PrintLLvalues m_PrintLLvalues;
 
   //Defined Controllers
+  private final Arduino m_Arduino;
+  private final ByteCodes m_ByteCodes;
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
 
@@ -66,6 +71,8 @@ public class RobotContainer {
     m_Chassis = new Chassis();
     m_FuelCellEE = new FuelCellEE();
     m_Pixy = new Pixy();
+    m_Arduino = new Arduino();
+
 
     //Set Autonomous Commands
 
@@ -77,6 +84,13 @@ public class RobotContainer {
     m_Chassis.setDefaultCommand(m_Drive);
     m_FuelCellEE.setDefaultCommand(m_FuelCellEEMot);
     m_Vision.setDefaultCommand(m_PrintLLvalues);
+    m_ByteCodes = new ByteCodes(m_Arduino);
+
+    m_Chassis.setDefaultCommand(m_Drive);
+    m_FuelCellEE.setDefaultCommand(m_FuelCellEEMot);
+    m_Arduino.setDefaultCommand(m_ByteCodes);
+
+
     
     //Define Controller
     m_DriverStick = new Joystick(joyStickConstants.stickPort);
