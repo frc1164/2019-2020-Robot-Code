@@ -8,8 +8,6 @@
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 //Controllers
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,16 +21,13 @@ import frc.robot.Constants.xBoxConstants;
 import frc.robot.subsystems.FuelCellEE;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.Pixy;
 
 //Teleop Commands
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
-import frc.robot.commands.bigBlock;
+import frc.robot.commands.PrintLLvalues;
 import frc.robot.commands.FuelCellEEMot;
-import frc.robot.commands.setPLED;
-import frc.robot.commands.SeekBall;
 
 //Auto Commands
 import frc.robot.commands.Auto.A_Drive;;
@@ -44,16 +39,20 @@ import frc.robot.commands.Auto.A_Drive;;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  // The robot's subsystems and default commands are defined here...
+    //Subsystems
   private final Chassis m_Chassis;
-  private final Drive m_Drive;
-  private final FuelCellEEMot m_FuelCellEEMot;
   private final FuelCellEE m_FuelCellEE;
   private final Vision m_Vision;
-  private final Pixy m_Pixy;
+
+    //Default Commands
+  private final Drive m_Drive;
+  private final FuelCellEEMot m_FuelCellEEMot;
+  private final PrintLLvalues m_PrintLLvalues;
+
+  //Defined Controllers
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
-  public static SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
   /**
@@ -65,16 +64,17 @@ public class RobotContainer {
     m_Vision = new Vision();
     m_Chassis = new Chassis();
     m_FuelCellEE = new FuelCellEE();
-    m_Pixy = new Pixy();
 
     //Set Autonomous Commands
 
     //Set Default Commands
     m_Drive = new Drive(m_Chassis);
     m_FuelCellEEMot = new FuelCellEEMot(m_FuelCellEE);
+    m_PrintLLvalues = new PrintLLvalues(m_Vision);
 
     m_Chassis.setDefaultCommand(m_Drive);
     m_FuelCellEE.setDefaultCommand(m_FuelCellEEMot);
+    m_Vision.setDefaultCommand(m_PrintLLvalues);
     
     //Define Controller
     m_DriverStick = new Joystick(joyStickConstants.stickPort);
@@ -108,13 +108,8 @@ public class RobotContainer {
 
     new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
                        .whenPressed(new FuelCellEESol(m_FuelCellEE));
-    
-    new JoystickButton(m_OperatorController, xBoxConstants.X_BUTTON)
-                        .whenPressed(new setPLED(m_Pixy));
-
-    new JoystickButton(m_OperatorController, xBoxConstants.B_BUTTON)
-                        .whileHeld(new bigBlock(m_Pixy));
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
