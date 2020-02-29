@@ -5,21 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+// 1) Flip fuelCell with button 4, 2) Run fuelCEllEE motor according to position of solenoid.
+
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.FuelCellEE;
-import frc.robot.RobotContainer;
-import frc.robot.Constants.xBoxConstants;
+import frc.robot.subsystems.FuelCell;
 
-public class FuelCellEEMot extends CommandBase {
-  private final FuelCellEE m_FuelCellEE;
+
+public class FuelCellSol extends CommandBase {
+  private static boolean fuelCellFlipSol = false;
+  private final FuelCell m_FuelCell;
   /**
-   * Creates a new FuelCellEEMot.
+   * Creates a new FuelCellScore.
    */
-  public FuelCellEEMot(FuelCellEE m_FuelCellEE) {
-    this.m_FuelCellEE = m_FuelCellEE;
-    addRequirements(m_FuelCellEE);
+  public FuelCellSol(FuelCell m_FuelCell) {
+    this.m_FuelCell = m_FuelCell;
+    addRequirements(m_FuelCell);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -31,8 +33,8 @@ public class FuelCellEEMot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double runFuelCellEEMot = RobotContainer.m_OperatorController.getRawAxis(xBoxConstants.ry_Axis);
-    m_FuelCellEE.fuelCellEESpeed(runFuelCellEEMot);
+    FuelCellSol.fuelCellFlipSol = !FuelCellSol.fuelCellFlipSol;
+    this.m_FuelCell.fuelCellFlip(FuelCellSol.fuelCellFlipSol);
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +45,6 @@ public class FuelCellEEMot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

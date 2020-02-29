@@ -20,7 +20,7 @@ import frc.robot.Constants.joyStickConstants;
 import frc.robot.Constants.xBoxConstants;
 
 //Subsystems
-import frc.robot.subsystems.FuelCellEE;
+import frc.robot.subsystems.FuelCell;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Pixy;
@@ -29,11 +29,11 @@ import frc.robot.subsystems.Arduino;
 //Teleop Commands
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
-import frc.robot.commands.FuelCellEESol;
+import frc.robot.commands.FuelCellSol;
 import frc.robot.commands.bigBlock;
 import frc.robot.commands.PrintLLvalues;
 import frc.robot.commands.CenterGoal;
-import frc.robot.commands.FuelCellEEMot;
+import frc.robot.commands.FuelCellMot;
 import frc.robot.commands.setPLED;
 import frc.robot.commands.SeekBall;
 import frc.robot.commands.ByteCodes;
@@ -53,7 +53,7 @@ public class RobotContainer {
   // The robot's subsystems and default commands are defined here...
     //Subsystems
   private final Chassis m_Chassis;
-  private final FuelCellEE m_FuelCellEE;
+  private final FuelCell m_FuelCell;
   private final Vision m_Vision;
   private final Pixy m_Pixy;
   private final Arduino m_Arduino;
@@ -61,7 +61,7 @@ public class RobotContainer {
   //Default Commands
   private final ByteCodes m_ByteCodes;
   private final Drive m_Drive;
-  private final FuelCellEEMot m_FuelCellEEMot;
+  private final FuelCellMot m_FuelCellMot;
   private final PrintLLvalues m_PrintLLvalues;
 
   //Defined Controllers
@@ -79,22 +79,22 @@ public class RobotContainer {
    //Instantiate Subsystems 
     m_Vision = new Vision();
     m_Chassis = new Chassis();
-    m_FuelCellEE = new FuelCellEE();
+    m_FuelCell = new FuelCell();
     m_Pixy = new Pixy();
     m_Arduino = new Arduino();
 
     //Set Default Commands
     m_Drive = new Drive(m_Chassis);
-    m_FuelCellEEMot = new FuelCellEEMot(m_FuelCellEE);
+    m_FuelCellMot = new FuelCellMot(m_FuelCell);
     m_PrintLLvalues = new PrintLLvalues(m_Vision);
 
     m_Chassis.setDefaultCommand(m_Drive);
-    m_FuelCellEE.setDefaultCommand(m_FuelCellEEMot);
+    m_FuelCell.setDefaultCommand(m_FuelCellMot);
     m_Vision.setDefaultCommand(m_PrintLLvalues);
     m_ByteCodes = new ByteCodes(m_Arduino);
 
     m_Chassis.setDefaultCommand(m_Drive);
-    m_FuelCellEE.setDefaultCommand(m_FuelCellEEMot);
+    m_FuelCell.setDefaultCommand(m_FuelCellMot);
     m_Arduino.setDefaultCommand(m_ByteCodes);
 
 
@@ -108,7 +108,7 @@ public class RobotContainer {
 
     //define auto commands
     final Command m_simpleAuto = new ChangeGear(m_Chassis);
-    final Command m_complexAuto = new A_MoveRaiseFC(m_Chassis, m_FuelCellEE);
+    final Command m_complexAuto = new A_MoveRaiseFC(m_Chassis, m_FuelCell);
     final Command m_driveOffLine = new A_Drive(2, .3, m_Chassis);
 
     //Autonomous chooser options
@@ -132,7 +132,7 @@ public class RobotContainer {
                       .whenPressed(new ChangeGear(m_Chassis));
 
     new JoystickButton(m_OperatorController, xBoxConstants.A_BUTTON)
-                       .whenPressed(new FuelCellEESol(m_FuelCellEE));
+                       .whenPressed(new FuelCellSol(m_FuelCell));
     
     new JoystickButton(m_OperatorController, xBoxConstants.X_BUTTON)
                         .whenPressed(new setPLED(m_Pixy));

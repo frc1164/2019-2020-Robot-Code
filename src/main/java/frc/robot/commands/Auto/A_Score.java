@@ -8,7 +8,8 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.FuelCellEE;
+import frc.robot.subsystems.FuelCell;
+import frc.robot.commands.FuelCellMotOut;
 import frc.robot.subsystems.Chassis;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -19,11 +20,11 @@ public class A_Score extends SequentialCommandGroup {
   /**
    * Creates a new A_Score.
    */
-  public A_Score(Chassis m_Chassis, FuelCellEE m_FuelCellEE) {
+  public A_Score(Chassis m_Chassis, FuelCell m_FuelCell) {
     
     super(
-      new A_MoveRaiseFC(m_Chassis, m_FuelCellEE)
-      new 
+      new A_MoveRaiseFC(m_Chassis, m_FuelCell),
+      new FuelCellMotOut(m_FuelCell)
     );
   }
 }

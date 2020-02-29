@@ -39,11 +39,12 @@ public final class Constants {
         public static final int rightEncoderChanB = 3;
     }
 
-    public static final class fuelCellEEConstants {
-        public static final int fuelCellEEMot = 12;
-        public static final boolean invertFuelCellEEMot = false;
-        public static final int fuelCellEESolenoidExtend = 2;
-        public static final int fuelCellEESolenoidRetract = 5;
+    public static final class fuelCellConstants {
+        public static final int fuelCellMot = 12;
+        public static final boolean invertFuelCellMot = false;
+        public static final int fuelCellSolenoidExtend = 2;
+        public static final int fuelCellSolenoidRetract = 5;
+        public static final double fuelCellMotSpeed = .3;
     }
 
     public static final class joyStickConstants {
@@ -54,7 +55,7 @@ public final class Constants {
         public static final int slider = 3;
         public static final int trigger = 1;
         public static final int changeGear = 3;
-        public static final int fuelCellEESol = 4;
+        public static final int fuelCellSol = 4;
     }
 
     public static final class xBoxConstants {
