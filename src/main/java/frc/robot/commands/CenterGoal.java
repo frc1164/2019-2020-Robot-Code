@@ -17,10 +17,10 @@ import frc.robot.subsystems.Chassis;
 
 public class CenterGoal extends CommandBase {
   private final Vision m_Vision;
-  private ShuffleboardTab tab = Shuffleboard.getTab("PID Settings");
-  //private NetworkTableEntry kP = tab.add("Line P", 0.017).getEntry();
-  //private NetworkTableEntry kI = tab.add("Line I", 0.006).getEntry();
-  //private NetworkTableEntry kD = tab.add("Line D", 0.003).getEntry();
+  private ShuffleboardTab tab = Shuffleboard.getTab("PID LL Settings");
+  private NetworkTableEntry kP = tab.add("Line P", 0.017).getEntry();
+  private NetworkTableEntry kI = tab.add("Line I", 0.006).getEntry();
+  private NetworkTableEntry kD = tab.add("Line D", 0.003).getEntry();
   double P, I, D; 
   public static double PIDout;
   private boolean buttonReleased;
@@ -39,9 +39,9 @@ public class CenterGoal extends CommandBase {
   @Override
   public void initialize() {
   PIDout = 0.0;
-  P = 0.017;//kP.getDouble(0.0);
-  I = 0.006;//kI.getDouble(0.0);
-  D = 0.003;//kD.getDouble(0.0);
+  P = kP.getDouble(0.0);
+  I = kI.getDouble(0.0);
+  D = kD.getDouble(0.0);
   testPID.setPID(P, I, D);
   testPID.setSetpoint(0.0);
   testPID.enableContinuousInput(-29.8, 29.8);

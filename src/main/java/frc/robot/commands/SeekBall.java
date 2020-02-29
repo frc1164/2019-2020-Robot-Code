@@ -24,7 +24,7 @@ public class SeekBall extends CommandBase {
   public static double PIDout;
   private boolean buttonReleased;
 
-  private ShuffleboardTab tab = Shuffleboard.getTab("PID Settings");
+  private ShuffleboardTab tab = Shuffleboard.getTab("PID Pixy Settings");
   private NetworkTableEntry kP = tab.add("Line P", 0.006).getEntry();
   private NetworkTableEntry kI = tab.add("Line I", 0.0015).getEntry();
   private NetworkTableEntry kD = tab.add("Line D", 0.0005).getEntry();
