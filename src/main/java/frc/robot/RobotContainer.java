@@ -88,7 +88,7 @@ public class RobotContainer {
     //define auto commands
     final Command m_simpleAuto = new ChangeGear(m_Chassis);
     final Command m_complexAuto = new ChangeGear(m_Chassis);
-    final Command m_driveOffLine = new A_Drive(m_Chassis);
+    final Command m_driveOffLine = new A_Drive(2, .3, m_Chassis);
 
     //Autonomous chooser options
    

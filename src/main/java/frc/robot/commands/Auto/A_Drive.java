@@ -12,11 +12,15 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class A_Drive extends CommandBase {
   private final Chassis m_Chassis;
+  private double m_time;
+  private double m_speed;
   /**
    * Creates a new A_Drive.
    */
-  public A_Drive(Chassis m_Chassis) {
+  public A_Drive(double time, double speed, Chassis m_Chassis) {
     this.m_Chassis = m_Chassis;
+    m_time = time;
+    m_speed = -speed; 
     addRequirements(m_Chassis);
   }
 
@@ -28,9 +32,9 @@ public class A_Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Chassis.leftSpeed(-.3);
-    m_Chassis.rightSpeed(-.225);
-    Timer.delay(2);
+    m_Chassis.leftSpeed(m_speed);
+    m_Chassis.rightSpeed(m_speed * 7/8);
+    Timer.delay(m_time);
     m_Chassis.brake();
   }
 
