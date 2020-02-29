@@ -38,6 +38,8 @@ import frc.robot.commands.setPLED;
 import frc.robot.commands.SeekBall;
 import frc.robot.commands.ByteCodes;
 
+//Auto Commands
+import frc.robot.commands.Auto.A_Drive;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -138,6 +140,7 @@ public class RobotContainer {
 
     new JoystickButton(m_OperatorController, xBoxConstants.B_BUTTON)
                         .whileHeld(new SeekBall(m_Chassis, m_Pixy));
+
     new JoystickButton(m_OperatorController, xBoxConstants.Y_BUTTON)
                       .whileHeld(new CenterGoal(m_Vision));
   }
