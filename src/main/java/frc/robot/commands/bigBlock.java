@@ -14,7 +14,7 @@ import io.github.pseudoresonance.pixy2api.Pixy2CCC.Block;
 
 public class bigBlock extends CommandBase {
   private final Pixy m_Pixy;
-  private static Block largestBlock = null;
+  private Block largestBlock = null;
   /**
    * Creates a new bigBlock.
    */
@@ -32,7 +32,7 @@ public class bigBlock extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Block b = m_Pixy.largestBlock(largestBlock);
+    Block b = m_Pixy.largestBlock();
     if (b == null){
       System.out.println("No Block");
       SmartDashboard.putString("Block info", "No Ball");

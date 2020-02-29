@@ -31,6 +31,7 @@ import frc.robot.commands.bigBlock;
 import frc.robot.commands.PrintLLvalues;
 import frc.robot.commands.FuelCellEEMot;
 import frc.robot.commands.setPLED;
+import frc.robot.commands.SeekBall;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -102,7 +103,7 @@ public class RobotContainer {
                         .whenPressed(new setPLED(m_Pixy));
 
     new JoystickButton(m_OperatorController, xBoxConstants.B_BUTTON)
-                        .whileHeld(new bigBlock(m_Pixy));
+                        .whileHeld(new SeekBall(m_Chassis, m_Pixy));
   }
 
   /**

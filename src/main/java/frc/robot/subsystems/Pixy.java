@@ -38,16 +38,12 @@ public class Pixy extends SubsystemBase {
 		pixy.setLED(200, 30, 255); // Sets the RGB LED to purple
   }
 
-  public Block largestBlock(Block largestBlock) {
+  public Block largestBlock() {
     // Gets the number of "blocks", identified targets, that match signature 1 on the Pixy2,
 		// does not wait for new data if none is available,
 		// and limits the number of returned blocks to 25, for a slight increase in efficiency
     Pixy2CCC temp = pixy.getCCC();
-    if (temp == null)
-    {
-      System.out.println("2ccc null");
-      return null;
-    }
+    final int blockSignature = 1;
     int errorCode = temp.getBlocks(false, Pixy2CCC.CCC_SIG1, 25);
     if (errorCode <= 0){
       System.out.println("Recieved error code: " + errorCode); // Reports error code
@@ -57,19 +53,30 @@ public class Pixy extends SubsystemBase {
       System.out.println("Recieved: " + errorCode + " Blocks"); //returns number of blocks
     }
     ArrayList<Block> blocks = pixy.getCCC().getBlocks(); // Gets a list of all blocks found by the Pixy2
-		for (Block block : blocks) { // Loops through all blocks and finds the widest one
-			if (largestBlock == null) {
-				largestBlock = block;
-			} else if (block.getWidth() > largestBlock.getWidth()) {
-				largestBlock = block;
-      }
+    Block largestBlock = null;
+    if (blocks == null) {
+			System.err.println("No Blocks");
+			return null;
+		}
+		for (Block block : blocks) {
+			if (block.getSignature() == blockSignature) {
+				if (largestBlock == null) {
+					largestBlock = block;
+				} else if (block.getWidth() > largestBlock.getWidth()) {
+					largestBlock = block;
+				}
+			}
 		}
     return largestBlock;
   }
 
   public boolean byteBool(Block largestBlock){
-    if (largestBlock != null);
+    if (largestBlock != null){
       return true;
+    }
+    else{
+      return false;
+    }
   }
 
   public int getXAxis(Block largestBlock){
