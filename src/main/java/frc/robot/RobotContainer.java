@@ -25,7 +25,7 @@ import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Pixy;
 
-//Commands
+//Teleop Commands
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
@@ -33,6 +33,9 @@ import frc.robot.commands.bigBlock;
 import frc.robot.commands.FuelCellEEMot;
 import frc.robot.commands.setPLED;
 import frc.robot.commands.SeekBall;
+
+//Auto Commands
+import frc.robot.commands.Auto.A_Drive;;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -83,9 +86,11 @@ public class RobotContainer {
     //define auto commands
     final Command m_simpleAuto = new ChangeGear(m_Chassis);
     final Command m_complexAuto = new ChangeGear(m_Chassis);
+    final Command m_driveOffLine = new A_Drive(m_Chassis);
     //Autonomous chooser options
     m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
     m_chooser.addOption("Complex Auto", m_complexAuto);
+    m_chooser.addOption("Drive Off Line", m_driveOffLine);
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Autonomous").add(m_chooser);
@@ -118,6 +123,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return m_chooser;
   }
 }
