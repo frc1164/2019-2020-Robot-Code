@@ -132,7 +132,7 @@ public class RobotContainer {
     new JoystickButton(m_DriverStick, joyStickConstants.changeGear)
                       .whenPressed(new ChangeGear(m_Chassis));
 
-    new JoystickButton(m_DriverStick, joyStickConstants.fuelCellEESol)
+    new JoystickButton(m_OperatorController, xBoxConstants.A_BUTTON)
                        .whenPressed(new FuelCellEESol(m_FuelCellEE));
     
     new JoystickButton(m_OperatorController, xBoxConstants.X_BUTTON)

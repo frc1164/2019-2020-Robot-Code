@@ -14,7 +14,7 @@ import frc.robot.subsystems.FuelCellEE;
 
 
 public class FuelCellEESol extends CommandBase {
-  private static boolean fuelCellEEFlipSol = true;
+  private static boolean fuelCellEEFlipSol = false;
   private final FuelCellEE m_FuelCellEE;
   /**
    * Creates a new FuelCellEEScore.
