@@ -26,7 +26,7 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Pixy;
 import frc.robot.subsystems.Arduino;
 
-//Commands
+//Teleop Commands
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Drive;
 import frc.robot.commands.FuelCellEESol;
@@ -51,19 +51,20 @@ public class RobotContainer {
   private final FuelCellEE m_FuelCellEE;
   private final Vision m_Vision;
   private final Pixy m_Pixy;
+  private final Arduino m_Arduino;
 
-    //Default Commands
+  //Default Commands
+  private final ByteCodes m_ByteCodes;
   private final Drive m_Drive;
   private final FuelCellEEMot m_FuelCellEEMot;
   private final PrintLLvalues m_PrintLLvalues;
 
   //Defined Controllers
-  private final Arduino m_Arduino;
-  private final ByteCodes m_ByteCodes;
   public static Joystick m_DriverStick;
   public static XboxController m_OperatorController;
-  public static SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+  //Define/Instantiate Chooser
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -106,9 +107,13 @@ public class RobotContainer {
     //define auto commands
     final Command m_simpleAuto = new ChangeGear(m_Chassis);
     final Command m_complexAuto = new ChangeGear(m_Chassis);
+    final Command m_driveOffLine = new A_Drive(2, .3, m_Chassis);
+
     //Autonomous chooser options
+   
     m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
     m_chooser.addOption("Complex Auto", m_complexAuto);
+    m_chooser.addOption("Drive Off Line", m_driveOffLine);
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Autonomous").add(m_chooser);
@@ -134,6 +139,7 @@ public class RobotContainer {
                         .whileHeld(new SeekBall(m_Chassis, m_Pixy));
   }
 
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -141,6 +147,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return  m_chooser.getSelected();
   }
 }
