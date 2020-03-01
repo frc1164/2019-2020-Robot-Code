@@ -41,7 +41,6 @@ import frc.robot.commands.ByteCodes;
 
 //Auto Commands
 import frc.robot.commands.Auto.A_Drive;
-import frc.robot.commands.Auto.A_MoveRaiseFC;
 import frc.robot.commands.Auto.A_Score;
 
 /**
@@ -110,13 +109,13 @@ public class RobotContainer {
     //define auto commands
     final Command m_simpleAuto = new ChangeGear(m_Chassis);
     final Command m_complexAuto = new A_Score(m_Chassis, m_FuelCell);
-    final Command m_driveOffLine = new A_Drive(2, .3, m_Chassis);
+    //final Command m_driveOffLine = new A_Drive(.3, m_Chassis);
 
     //Autonomous chooser options
    
     m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
     m_chooser.addOption("Complex Auto", m_complexAuto);
-    m_chooser.addOption("Drive Off Line", m_driveOffLine);
+    //m_chooser.addOption("Drive Off Line", m_driveOffLine);
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Autonomous").add(m_chooser);

@@ -7,18 +7,16 @@
 
 package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.FuelCell;
+import frc.robot.subsystems.Chassis;;
 
-public class A_FCEEmot extends CommandBase {
-  private final FuelCell m_FuelCell;
-  private double m_MSpeed;
+public class A_Brake extends CommandBase {
+  private final Chassis m_Chassis;
   /**
-   * Creates a new A_FCEEmot.
+   * Creates a new A_Brake.
    */
-  public A_FCEEmot(double motorSpeed, FuelCell m_FuelCell) {
-    this.m_FuelCell = m_FuelCell;
-    m_MSpeed = motorSpeed;
-    addRequirements(m_FuelCell);
+  public A_Brake(Chassis m_Chassis) {
+    this.m_Chassis = m_Chassis;
+    addRequirements(m_Chassis);
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +27,7 @@ public class A_FCEEmot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_FuelCell.fuelCellSpeed(m_MSpeed);
+    m_Chassis.brake();
   }
 
   // Called once the command ends or is interrupted.

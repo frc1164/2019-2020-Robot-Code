@@ -7,18 +7,16 @@
 
 package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.FuelCell;
+import edu.wpi.first.wpilibj.Timer;
 
-public class A_FCEEmot extends CommandBase {
-  private final FuelCell m_FuelCell;
-  private double m_MSpeed;
+public class A_Delay extends CommandBase {
+  private double m_time;
+  private boolean timerDone;
   /**
-   * Creates a new A_FCEEmot.
+   * Creates a new Delay.
    */
-  public A_FCEEmot(double motorSpeed, FuelCell m_FuelCell) {
-    this.m_FuelCell = m_FuelCell;
-    m_MSpeed = motorSpeed;
-    addRequirements(m_FuelCell);
+  public A_Delay(double Seconds) {
+    m_time = Seconds;
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +27,10 @@ public class A_FCEEmot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_FuelCell.fuelCellSpeed(m_MSpeed);
+    timerDone = false;
+    Timer.delay(m_time);
+    timerDone = true;
+
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +41,6 @@ public class A_FCEEmot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return timerDone;
   }
 }

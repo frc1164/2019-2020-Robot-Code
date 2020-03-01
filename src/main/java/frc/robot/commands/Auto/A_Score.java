@@ -23,8 +23,21 @@ public class A_Score extends SequentialCommandGroup {
   public A_Score(Chassis m_Chassis, FuelCell m_FuelCell) {
     
     super(
-      new A_MoveRaiseFC(m_Chassis, m_FuelCell),
-      new A_FCEEmot(2, .3, m_FuelCell)
+      new A_FCEEsol(true, m_FuelCell),
+      
+      new A_Drive(.2, m_Chassis),
+      new A_Delay(2),
+      new A_Brake(m_Chassis),
+
+      new A_FCEEmot(.3, m_FuelCell),
+      new A_Delay(3),
+      new A_FCEEmot(0, m_FuelCell),
+
+      new A_FCEEsol(false , m_FuelCell),
+      
+      new A_Drive(-0.2, m_Chassis),
+      new A_Delay(2),
+      new A_Brake(m_Chassis)
     );
   }
 }
