@@ -8,13 +8,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.driveConstants;
+import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Solenoid;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.AnalogInput;
+import frc.robot.Constants.driveConstants;
 
 public class Chassis extends SubsystemBase {
   private final VictorSPX leftMotorRear = new VictorSPX(driveConstants.leftMotorRear);
@@ -22,8 +23,8 @@ public class Chassis extends SubsystemBase {
   private final VictorSPX leftMotorFront = new VictorSPX(driveConstants.leftMotorFront);
   private final VictorSPX rightMotorFront = new VictorSPX(driveConstants.rightMotorFront);
   private final Solenoid leftLowSol, leftHighSol, rightLowSol, rightHighSol;
-  private double currentDistance;
-  private final AnalogInput m_ultrasonic;
+  private static Ultrasonic ultrasonic;
+  public static double currentDistance;
 
   /**
    * Creates a new Chassis.
@@ -33,7 +34,7 @@ public class Chassis extends SubsystemBase {
     leftHighSol = new Solenoid(driveConstants.PCM, driveConstants.leftHighSol);
     rightLowSol = new Solenoid(driveConstants.PCM, driveConstants.rightLowSol);
     rightHighSol = new Solenoid(driveConstants.PCM, driveConstants.rightHighSol);
-    m_ultrasonic = new AnalogInput(driveConstants.ultrasonicPort);
+    ultrasonic = new Ultrasonic(driveConstants.DIO6, driveConstants.DIO7);
   }
 
 //not sure if this needs to be in Periodic
@@ -59,9 +60,9 @@ public class Chassis extends SubsystemBase {
   }
 
   public void currentDistance() {
-    // sensor returns a value from 0-4095 that is scaled to inches
-    currentDistance = m_ultrasonic.getValue(); //* driveConstants.valueToInches;
-    SmartDashboard.putNumber("Current distance (in)", currentDistance);
+    ultrasonic.setAutomaticMode(true);
+    currentDistance = ultrasonic.getRangeInches();
+    SmartDashboard.putNumber("Current Distance", currentDistance);
   }
 
   @Override
