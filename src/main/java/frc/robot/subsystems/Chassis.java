@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Solenoid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -34,7 +33,7 @@ public class Chassis extends SubsystemBase {
     leftHighSol = new Solenoid(driveConstants.PCM, driveConstants.leftHighSol);
     rightLowSol = new Solenoid(driveConstants.PCM, driveConstants.rightLowSol);
     rightHighSol = new Solenoid(driveConstants.PCM, driveConstants.rightHighSol);
-    ultrasonic = new Ultrasonic(driveConstants.DIO6, driveConstants.DIO7);
+    ultrasonic = new Ultrasonic(driveConstants.DIO7, driveConstants.DIO6);
   }
 
 //not sure if this needs to be in Periodic
@@ -62,7 +61,6 @@ public class Chassis extends SubsystemBase {
   public void currentDistance() {
     ultrasonic.setAutomaticMode(true);
     currentDistance = ultrasonic.getRangeInches();
-    SmartDashboard.putNumber("Current Distance", currentDistance);
   }
 
   @Override

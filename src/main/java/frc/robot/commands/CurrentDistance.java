@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Chassis;
 
 public class CurrentDistance extends CommandBase {
@@ -31,6 +32,7 @@ public class CurrentDistance extends CommandBase {
   public void execute() {
     buttonReleased = false;
     m_Chassis.currentDistance();
+    SmartDashboard.putNumber("Current Distance", Chassis.currentDistance);
   }
 
   // Called once the command ends or is interrupted.

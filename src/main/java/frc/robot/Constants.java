@@ -37,11 +37,9 @@ public final class Constants {
         public static final int leftEncoderChanB = 1;
         public static final int rightEncoderChanA = 2;
         public static final int rightEncoderChanB = 3;
-
-        public static final int ultrasonicPort = 1;
-        public static final double valueToInches = 0.125;
-        // Proportional constant for drive
-        private static final double P = 0.05;
+        
+        public static final int DIO6 = 6; //Ultrasonic sensor
+        public static final int DIO7 = 7; //Ultrasonic sensor
     }
 
     public static final class fuelCellEEConstants {
@@ -64,9 +62,9 @@ public final class Constants {
 
     public static final class xBoxConstants {
         public static final int operatorPort = 1;
-        public static final int ry_Axis = 5;
-        public static final int RIGHT_TRIGGER = 3;
         public static final int LEFT_TRIGGER = 2;
-        public static final int Y_BUTTON = 4; // CurrentDistance
+        public static final int RIGHT_TRIGGER = 3;
+        public static final int Y_BUTTON = 4;
+        public static final int ry_Axis = 5;
     }
 }
