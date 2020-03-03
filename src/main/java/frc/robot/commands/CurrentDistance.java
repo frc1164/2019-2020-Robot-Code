@@ -5,26 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Auto;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Vision;
 
-public class A_DriveToDistance extends CommandBase {
+public class CurrentDistance extends CommandBase {
   private final Chassis m_Chassis;
-  private final Vision m_Vision;
-  private final double m_distanceToStop;
-  private final double m_DriveSpeed;
+  private boolean buttonReleased = false;
   /**
-   * Creates a new A_DriveDistance.
+   * Creates a new CurrentDistance.
    */
-  public A_DriveToDistance(double DriveSpeed, double InchesToStop, Chassis m_Chassis, Vision m_Vision) {
+  public CurrentDistance(Chassis m_Chassis) {
     this.m_Chassis = m_Chassis;
-    this.m_Vision = m_Vision;
-    m_DriveSpeed = -DriveSpeed;
-    m_distanceToStop = InchesToStop;
-    addRequirements(m_Chassis);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -35,21 +31,19 @@ public class A_DriveToDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    while (Vision.m_Ultrasonic.getRangeInches() >= m_distanceToStop) {
-    m_Chassis.leftSpeed(m_DriveSpeed * 7/8);
-    m_Chassis.rightSpeed(m_DriveSpeed);
-    }
-    m_Chassis.brake();
+    buttonReleased = false;
+    SmartDashboard.putNumber("Current Distance", Vision.m_Ultrasonic.getRangeInches());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    buttonReleased = true;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return buttonReleased;
   }
 }

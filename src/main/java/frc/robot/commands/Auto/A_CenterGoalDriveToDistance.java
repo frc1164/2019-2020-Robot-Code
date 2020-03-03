@@ -39,7 +39,7 @@ public class A_CenterGoalDriveToDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    while (!Vision.get_lltarget() || (Vision.currentDistance >= m_inchesToStop)){
+    while (!Vision.get_lltarget() || (Vision.m_Ultrasonic.getRangeInches() >= m_inchesToStop)){
       if (Vision.get_lltarget()){   
         CenterLLPID.reset();
         CenterLLPID.setSetpoint(0.0);

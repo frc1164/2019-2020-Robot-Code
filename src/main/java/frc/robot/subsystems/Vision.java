@@ -19,7 +19,6 @@ public class Vision extends SubsystemBase {
   public static NetworkTable table;
   public static NetworkTableEntry tx, ty, ta, tv;
   public static Ultrasonic m_Ultrasonic;
-  public static double currentDistance;
   LinkedList<Double> LLvalues = new LinkedList<Double>();
 
   /**
@@ -33,6 +32,8 @@ public class Vision extends SubsystemBase {
     ty = table.getEntry("ty");
     ta = table.getEntry("ta");
     tv = table.getEntry("tv");
+    m_Ultrasonic.setAutomaticMode(true);
+    m_Ultrasonic.getRangeInches() = variable;
   }
   
   //Method for LimeLight valid target
@@ -66,18 +67,12 @@ public class Vision extends SubsystemBase {
     return LLarea;
   }
 
-  public void currentDistance() {
-    m_Ultrasonic.setAutomaticMode(true);
-    currentDistance = m_Ultrasonic.getRangeInches();
-  }
-  
   //Displays LimeLight Valu
   public void printLLvalues() {
     SmartDashboard.putBoolean("Object Detected", get_lltarget());
     SmartDashboard.putNumber("LimelightX", get_llx());
     SmartDashboard.putNumber("LimelightY", get_lly());
     SmartDashboard.putNumber("LimelightArea", get_llarea());
-    SmartDashboard.putNumber("Distance", currentDistance);
   }
 
   
