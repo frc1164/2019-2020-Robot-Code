@@ -8,34 +8,20 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.FuelCell;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Vision;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class A_Score extends SequentialCommandGroup {
+public class A_TestSeekGoal extends SequentialCommandGroup {
 
   /**
-   * Creates a new A_Score.
+   * Creates a new A_TestSeekGoal.
    */
-  public A_Score(Chassis m_Chassis, FuelCell m_FuelCell) {
-    
+  public A_TestSeekGoal(Chassis m_Chassis, Vision m_Vision) {
     super(
-      new A_FCEEsol(true, m_FuelCell),
-      
-      new A_Drive(.3, m_Chassis),
-      new A_Delay(2),
-      new A_Brake(m_Chassis),
-
-      new A_FCEEmot(-0.3, m_FuelCell),
-      new A_Delay(3),
-      new A_FCEEmot(0, m_FuelCell),
-
-      new A_FCEEsol(false , m_FuelCell),
-      
-      new A_Drive(-0.3, m_Chassis),
-      new A_Delay(2),
+      new A_SeekGoalUntil(m_Chassis, m_Vision),
       new A_Brake(m_Chassis)
     );
   }

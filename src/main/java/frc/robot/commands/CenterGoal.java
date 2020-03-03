@@ -57,7 +57,6 @@ public class CenterGoal extends CommandBase {
     //m_Chassis.rightSpeed (-PIDout);
     //m_Chassis.leftSpeed (PIDout);
     }
-    SmartDashboard.putNumber("test Vision", PIDout);
   }
 
   // Called once the command ends or is interrupted.

@@ -7,36 +7,23 @@
 
 package frc.robot.commands.Auto;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.FuelCell;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Vision;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class A_Score extends SequentialCommandGroup {
-
+public class A_SeekGoalUntil extends ParallelDeadlineGroup {
   /**
-   * Creates a new A_Score.
+   * Creates a new A_SeekGoalUntil.
    */
-  public A_Score(Chassis m_Chassis, FuelCell m_FuelCell) {
-    
+  public A_SeekGoalUntil(Chassis m_Chassis, Vision m_Vision) {
+    // Add your commands in the super() call.  Add the deadline first.
     super(
-      new A_FCEEsol(true, m_FuelCell),
-      
-      new A_Drive(.3, m_Chassis),
-      new A_Delay(2),
-      new A_Brake(m_Chassis),
-
-      new A_FCEEmot(-0.3, m_FuelCell),
-      new A_Delay(3),
-      new A_FCEEmot(0, m_FuelCell),
-
-      new A_FCEEsol(false , m_FuelCell),
-      
-      new A_Drive(-0.3, m_Chassis),
-      new A_Delay(2),
-      new A_Brake(m_Chassis)
+      new A_CenterGoalDrive(0.2, m_Chassis, m_Vision),
+      new A_Delay(4)
     );
   }
 }
