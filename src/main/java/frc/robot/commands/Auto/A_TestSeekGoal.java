@@ -21,7 +21,7 @@ public class A_TestSeekGoal extends SequentialCommandGroup {
    */
   public A_TestSeekGoal(Chassis m_Chassis, Vision m_Vision) {
     super(
-      new A_SeekGoalUntil(m_Chassis, m_Vision),
+      new A_CenterGoalDriveToDistance(0.2, 20, m_Chassis, m_Vision),
       new A_Brake(m_Chassis)
     );
   }

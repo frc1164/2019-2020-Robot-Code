@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.LinkedList;
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -17,6 +18,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class Vision extends SubsystemBase {
   public static NetworkTable table;
   public static NetworkTableEntry tx, ty, ta, tv;
+  public static Ultrasonic m_Ultrasonic;
+  public static double currentDistance;
   LinkedList<Double> LLvalues = new LinkedList<Double>();
 
   /**
@@ -62,6 +65,11 @@ public class Vision extends SubsystemBase {
     double LLarea = ta.getDouble(0.0);
     return LLarea;
   }
+
+  public void currentDistance() {
+    m_Ultrasonic.setAutomaticMode(true);
+    currentDistance = m_Ultrasonic.getRangeInches();
+  }
   
   //Displays LimeLight Valu
   public void printLLvalues() {
@@ -69,6 +77,7 @@ public class Vision extends SubsystemBase {
     SmartDashboard.putNumber("LimelightX", get_llx());
     SmartDashboard.putNumber("LimelightY", get_lly());
     SmartDashboard.putNumber("LimelightArea", get_llarea());
+    SmartDashboard.putNumber("Distance", currentDistance);
   }
 
   

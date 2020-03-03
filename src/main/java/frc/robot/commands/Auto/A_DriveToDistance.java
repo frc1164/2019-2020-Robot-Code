@@ -8,23 +8,22 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
-import edu.wpi.first.wpilibj.controller.PIDController;
+import frc.robot.subsystems.Vision;
 
-public class A_CenterGoalDrive extends CommandBase {
+public class A_DriveToDistance extends CommandBase {
   private final Chassis m_Chassis;
   private final Vision m_Vision;
-  private double m_SpeedWhileCentering;
-  private double PIDout;
-  PIDController CenterLLPID = new PIDController(0.017, 0.006, 0.003);
+  private final double m_distanceToStop;
+  private final double m_DriveSpeed;
   /**
-   * Creates a new A_CenterGoalDrive.
+   * Creates a new A_DriveDistance.
    */
-  public A_CenterGoalDrive(double forwardSpeed, Chassis m_Chassis, Vision m_Vision) {
+  public A_DriveToDistance(double DriveSpeed, double InchesToStop, Chassis m_Chassis, Vision m_Vision) {
     this.m_Chassis = m_Chassis;
     this.m_Vision = m_Vision;
-    m_SpeedWhileCentering = -forwardSpeed;
+    m_DriveSpeed = -DriveSpeed;
+    m_distanceToStop = InchesToStop;
     addRequirements(m_Chassis);
   }
 
@@ -36,22 +35,11 @@ public class A_CenterGoalDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    while (true){
-      if (Vision.get_lltarget()){   
-        CenterLLPID.reset();
-        CenterLLPID.setSetpoint(0.0);
-        CenterLLPID.enableContinuousInput(-29.8, 29.8);
-        PIDout = CenterLLPID.calculate(Vision.get_llx());
-        m_Chassis.rightSpeed(m_SpeedWhileCentering - PIDout);
-        m_Chassis.leftSpeed(m_SpeedWhileCentering + PIDout);
-      }
-
-      else {
-        m_Chassis.leftSpeed(0.4);
-        m_Chassis.rightSpeed(-0.4);
-      }
-
+    while (Vision.currentDistance >= m_distanceToStop) {
+    m_Chassis.leftSpeed(m_DriveSpeed * 7/8);
+    m_Chassis.rightSpeed(m_DriveSpeed);
     }
+    m_Chassis.brake();
   }
 
   // Called once the command ends or is interrupted.
@@ -62,6 +50,6 @@ public class A_CenterGoalDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

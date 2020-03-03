@@ -42,7 +42,8 @@ import frc.robot.commands.ByteCodes;
 //Auto Commands
 import frc.robot.commands.Auto.A_Score;
 import frc.robot.commands.Auto.A_TestSeekGoal;
-import frc.robot.commands.Auto.A_CenterGoalDrive;;
+import frc.robot.commands.Auto.A_CenterGoalDriveToDistance;
+import frc.robot.commands.Auto.A_DriveOffLine;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -109,14 +110,16 @@ public class RobotContainer {
 
     //define auto commands
     final Command m_simpleAuto = new ChangeGear(m_Chassis);
-    final Command m_complexAuto = new A_Score(m_Chassis, m_FuelCell);
+    final Command m_Score = new A_Score(m_Chassis, m_FuelCell, m_Vision);
     final Command m_CenterGoalDrive = new A_TestSeekGoal(m_Chassis, m_Vision);
+    final Command m_DriveOffLine = new A_DriveOffLine(m_Chassis);
 
     //Autonomous chooser options
    
-    m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
-    m_chooser.addOption("Complex Auto", m_complexAuto);
-    m_chooser.addOption("Drive to Goal", m_CenterGoalDrive);
+    m_chooser.setDefaultOption("Score From Start", m_Score);
+    m_chooser.addOption("Drive Off Line", m_DriveOffLine);
+    m_chooser.addOption("Drive/Center to Goal", m_CenterGoalDrive);
+    m_chooser.addOption("Simple Auto", m_simpleAuto);
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Autonomous").add(m_chooser);
