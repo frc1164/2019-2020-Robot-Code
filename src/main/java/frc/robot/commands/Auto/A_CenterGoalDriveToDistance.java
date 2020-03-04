@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.Ultrasonic;
 
 public class A_CenterGoalDriveToDistance extends CommandBase {
   private final Chassis m_Chassis;
