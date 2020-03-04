@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Vision;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PrintLLvalues extends CommandBase {
   private final Vision m_Vision;
@@ -29,6 +30,7 @@ public class PrintLLvalues extends CommandBase {
   @Override
   public void execute() {
     m_Vision.printLLvalues();
+  
   }
 
   // Called once the command ends or is interrupted.

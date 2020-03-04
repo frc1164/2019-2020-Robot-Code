@@ -5,22 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
-
+package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.FuelCellEE;
-import frc.robot.RobotContainer;
-import frc.robot.Constants.xBoxConstants;
+import edu.wpi.first.wpilibj.Timer;
 
-public class FuelCellEEMot extends CommandBase {
-  private final FuelCellEE m_FuelCellEE;
+public class A_Delay extends CommandBase {
+  private double m_time;
+  private boolean timerDone;
   /**
-   * Creates a new FuelCellEEMot.
+   * Creates a new Delay.
    */
-  public FuelCellEEMot(FuelCellEE m_FuelCellEE) {
-    this.m_FuelCellEE = m_FuelCellEE;
-    addRequirements(m_FuelCellEE);
-    // Use addRequirements() here to declare subsystem dependencies.
+  public A_Delay(double Seconds) {
+    m_time = Seconds;
   }
 
   // Called when the command is initially scheduled.
@@ -31,8 +27,10 @@ public class FuelCellEEMot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double runFuelCellEEMot = RobotContainer.m_OperatorController.getRawAxis(xBoxConstants.ry_Axis);
-    m_FuelCellEE.fuelCellEESpeed(runFuelCellEEMot);
+    timerDone = false;
+    Timer.delay(m_time);
+    timerDone = true;
+
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +41,6 @@ public class FuelCellEEMot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return timerDone;
   }
 }

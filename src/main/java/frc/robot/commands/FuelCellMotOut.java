@@ -5,20 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Auto;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Chassis;
+package frc.robot.commands;
 
-public class A_Drive extends CommandBase {
-  private final Chassis m_Chassis;
-  private double m_DSpeed;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.FuelCell;
+import frc.robot.Constants.fuelCellConstants;
+
+public class FuelCellMotOut extends CommandBase {
+  private final FuelCell m_FuelCell;
+  private boolean buttonReleased;
   /**
-   * Creates a new A_Drive.
+   * Creates a new FuelCellMot.
    */
-  public A_Drive(double driveSpeed, Chassis m_Chassis) {
-    this.m_Chassis = m_Chassis;
-    m_DSpeed = -driveSpeed;
-    addRequirements(m_Chassis);
+  public FuelCellMotOut(FuelCell m_FuelCell) {
+    this.m_FuelCell = m_FuelCell;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -29,18 +30,21 @@ public class A_Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Chassis.leftSpeed(m_DSpeed);
-    m_Chassis.rightSpeed(m_DSpeed);
+    buttonReleased = false;
+    double setFuelCellMotSpeed = fuelCellConstants.fuelCellMotSpeed;
+    m_FuelCell.fuelCellSpeed(-setFuelCellMotSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_FuelCell.fuelCellSpeed(0.0);
+    buttonReleased = true;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return buttonReleased;
   }
 }

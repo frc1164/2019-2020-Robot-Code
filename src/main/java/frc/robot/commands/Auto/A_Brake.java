@@ -7,17 +7,15 @@
 
 package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Chassis;;
 
-public class A_Drive extends CommandBase {
+public class A_Brake extends CommandBase {
   private final Chassis m_Chassis;
-  private double m_DSpeed;
   /**
-   * Creates a new A_Drive.
+   * Creates a new A_Brake.
    */
-  public A_Drive(double driveSpeed, Chassis m_Chassis) {
+  public A_Brake(Chassis m_Chassis) {
     this.m_Chassis = m_Chassis;
-    m_DSpeed = -driveSpeed;
     addRequirements(m_Chassis);
   }
 
@@ -29,8 +27,7 @@ public class A_Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Chassis.leftSpeed(m_DSpeed);
-    m_Chassis.rightSpeed(m_DSpeed);
+    m_Chassis.brake();
   }
 
   // Called once the command ends or is interrupted.

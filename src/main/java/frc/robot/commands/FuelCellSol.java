@@ -5,20 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Auto;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Chassis;
+// 1) Flip fuelCell with button 4, 2) Run fuelCEllEE motor according to position of solenoid.
 
-public class A_Drive extends CommandBase {
-  private final Chassis m_Chassis;
-  private double m_DSpeed;
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.FuelCell;
+
+
+public class FuelCellSol extends CommandBase {
+  private static boolean fuelCellFlipSol = false;
+  private final FuelCell m_FuelCell;
   /**
-   * Creates a new A_Drive.
+   * Creates a new FuelCellScore.
    */
-  public A_Drive(double driveSpeed, Chassis m_Chassis) {
-    this.m_Chassis = m_Chassis;
-    m_DSpeed = -driveSpeed;
-    addRequirements(m_Chassis);
+  public FuelCellSol(FuelCell m_FuelCell) {
+    this.m_FuelCell = m_FuelCell;
+    addRequirements(m_FuelCell);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -29,8 +33,8 @@ public class A_Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Chassis.leftSpeed(m_DSpeed);
-    m_Chassis.rightSpeed(m_DSpeed);
+    FuelCellSol.fuelCellFlipSol = !FuelCellSol.fuelCellFlipSol;
+    this.m_FuelCell.fuelCellFlip(FuelCellSol.fuelCellFlipSol);
   }
 
   // Called once the command ends or is interrupted.

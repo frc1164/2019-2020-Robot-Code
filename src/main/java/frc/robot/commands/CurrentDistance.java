@@ -5,20 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Auto;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Chassis;
+package frc.robot.commands;
 
-public class A_Drive extends CommandBase {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Vision;
+
+public class CurrentDistance extends CommandBase {
   private final Chassis m_Chassis;
-  private double m_DSpeed;
+  private boolean buttonReleased = false;
   /**
-   * Creates a new A_Drive.
+   * Creates a new CurrentDistance.
    */
-  public A_Drive(double driveSpeed, Chassis m_Chassis) {
+  public CurrentDistance(Chassis m_Chassis) {
     this.m_Chassis = m_Chassis;
-    m_DSpeed = -driveSpeed;
-    addRequirements(m_Chassis);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -29,18 +31,19 @@ public class A_Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Chassis.leftSpeed(m_DSpeed);
-    m_Chassis.rightSpeed(m_DSpeed);
+    buttonReleased = false;
+    SmartDashboard.putNumber("Current Distance", Vision.m_Ultrasonic.getRangeInches());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    buttonReleased = true;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return buttonReleased;
   }
 }

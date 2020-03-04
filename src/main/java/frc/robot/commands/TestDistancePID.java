@@ -15,8 +15,9 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Chassis;
 
-public class CenterGoal extends CommandBase {
+public class TestDistancePID extends CommandBase {
   private final Vision m_Vision;
+  private final Chassis m_Chassis;
   private ShuffleboardTab tab = Shuffleboard.getTab("PID LL Settings");
   private NetworkTableEntry kP = tab.add("Line P", 0.017).getEntry();
   private NetworkTableEntry kI = tab.add("Line I", 0.006).getEntry();
@@ -31,8 +32,10 @@ public class CenterGoal extends CommandBase {
   /**
    * Creates a new SeekBall.
    */
-  public CenterGoal(Vision m_Vision) {
+  public TestDistancePID(Chassis m_Chassis, Vision m_Vision) {
     this.m_Vision = m_Vision;
+    this.m_Chassis = m_Chassis;
+    addRequirements(m_Chassis);
   }
 
   // Called when the command is initially scheduled.-
@@ -52,11 +55,9 @@ public class CenterGoal extends CommandBase {
 
   public void execute() {
     buttonReleased = false;
-    if (Vision.get_lltarget()) {
-    PIDout = testPID.calculate(Vision.get_llx());
-    //m_Chassis.rightSpeed (-PIDout);
-    //m_Chassis.leftSpeed (PIDout);
-    }
+    PIDout = testPID.calculate(Vision.get_Distance());
+    m_Chassis.rightSpeed (PIDout);
+    m_Chassis.leftSpeed (PIDout);
   }
 
   // Called once the command ends or is interrupted.
