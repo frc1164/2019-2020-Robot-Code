@@ -29,7 +29,7 @@ public class A_Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Chassis.leftSpeed(m_DSpeed * 7/8);
+    m_Chassis.leftSpeed(m_DSpeed);
     m_Chassis.rightSpeed(m_DSpeed);
   }
 

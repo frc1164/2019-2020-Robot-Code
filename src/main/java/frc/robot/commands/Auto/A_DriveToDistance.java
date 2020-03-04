@@ -35,8 +35,8 @@ public class A_DriveToDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    while (Vision.m_Ultrasonic.getRangeInches() >= m_distanceToStop) {
-    m_Chassis.leftSpeed(m_DriveSpeed * 7/8);
+    while (Vision.get_Distance() >= m_distanceToStop) {
+    m_Chassis.leftSpeed(m_DriveSpeed);
     m_Chassis.rightSpeed(m_DriveSpeed);
     }
     m_Chassis.brake();

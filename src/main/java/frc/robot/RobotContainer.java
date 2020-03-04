@@ -44,6 +44,7 @@ import frc.robot.commands.Auto.A_Score;
 import frc.robot.commands.Auto.A_TestSeekGoal;
 import frc.robot.commands.Auto.A_CenterGoalDriveToDistance;
 import frc.robot.commands.Auto.A_DriveOffLine;
+import frc.robot.commands.Auto.A_DriveToDistance;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -113,12 +114,14 @@ public class RobotContainer {
     final Command m_Score = new A_Score(m_Chassis, m_FuelCell, m_Vision);
     final Command m_CenterGoalDrive = new A_TestSeekGoal(m_Chassis, m_Vision);
     final Command m_DriveOffLine = new A_DriveOffLine(m_Chassis);
+    final Command m_DriveToDistance = new A_DriveToDistance(.3, 40, m_Chassis, m_Vision);
 
     //Autonomous chooser options
    
     m_chooser.setDefaultOption("Score From Start", m_Score);
     m_chooser.addOption("Drive Off Line", m_DriveOffLine);
     m_chooser.addOption("Drive/Center to Goal", m_CenterGoalDrive);
+    m_chooser.addOption("Dribev  sdkfj", m_DriveToDistance);
     m_chooser.addOption("Simple Auto", m_simpleAuto);
 
     // Put the chooser on the dashboard
